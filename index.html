@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recouvrement externalisé Maurice France</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout : monde sombre unique, noir et bleus en dégradé. Chaque vue s'ouvre sur un panneau héros avec illustration, puis des cartes à liseré dégradé. */
+:root{
+  --bg:#04060c; --surface:#0b1222; --ink:#eaf0ff; --muted:#93a3c4; --line:#1c2a4a;
+  --accent:#3b74ff; --accent-soft:rgba(59,116,255,.16); --amber:#5ad1ff; --amber-soft:rgba(90,209,255,.14); --slate:#a9b3ff;
+  --grad:linear-gradient(120deg,#5ad1ff 0%,#3b74ff 55%,#1a2f9c 100%);
+  --display:"Syne","Trebuchet MS",sans-serif;
+  --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  background:radial-gradient(900px 500px at 85% -5%,rgba(59,116,255,.28),transparent 60%),radial-gradient(700px 500px at -10% 35%,rgba(26,47,156,.35),transparent 60%),radial-gradient(800px 600px at 60% 110%,rgba(90,209,255,.10),transparent 60%),var(--bg);
+  background-attachment:fixed;min-height:100%}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.12;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(1.8rem,5.4vw,2.9rem);font-weight:800}
+h2{font-size:clamp(1.35rem,3.6vw,1.8rem);font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0;max-width:68ch}
+a{color:var(--amber)}
+header.top{position:sticky;top:0;z-index:5;background:rgba(4,6,12,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:1.08rem;margin-right:auto;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.74rem;color:var(--muted)}
+nav{display:flex;gap:6px;overflow-x:auto;max-width:100%;padding-bottom:2px}
+nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+nav a[aria-current="page"]{background:var(--grad);border-color:transparent;color:#03102e}
+nav a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 64px}
+.view{display:none;flex-direction:column;gap:30px}
+.view.on{display:flex}
+.lead{font-size:1.08rem;color:#c3cfea}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start}
+.stack{display:flex;flex-direction:column;gap:10px}
+.hero{display:grid;grid-template-columns:1fr minmax(240px,360px);column-gap:24px;row-gap:12px;align-items:center;padding:28px;border-radius:20px;border:1px solid #223463;
+  background:linear-gradient(135deg,rgba(59,116,255,.30) 0%,rgba(13,24,60,.85) 45%,rgba(4,6,12,.9) 100%);overflow:hidden}
+.hero>*{grid-column:1}
+.hero .art{grid-column:2;grid-row:1 / span 3}
+.hero .art svg{width:100%;height:auto;display:block}
+@media (max-width:720px){.hero{grid-template-columns:1fr;padding:20px}.hero .art{grid-column:1;grid-row:auto;order:-1;max-width:420px}}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.grid.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.grid.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.card{border:1px solid transparent;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;
+  background:linear-gradient(160deg,#0e1830,#090f1e) padding-box,linear-gradient(140deg,#3b74ff 0%,rgba(59,116,255,.25) 35%,rgba(255,255,255,.06) 100%) border-box}
+.card.alt{background:linear-gradient(160deg,#0c1c33,#090f1e) padding-box,linear-gradient(140deg,#5ad1ff 0%,rgba(90,209,255,.25) 35%,rgba(255,255,255,.06) 100%) border-box}
+ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px}
+li::marker{color:var(--accent)}
+.tag{display:inline-block;align-self:flex-start;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:#9dbbff;border:1px solid rgba(59,116,255,.4)}
+.tag.am{background:var(--amber-soft);color:var(--amber);border-color:rgba(90,209,255,.4)}
+.flow{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.flow div{flex:1 1 150px;background:linear-gradient(180deg,rgba(59,116,255,.16),rgba(11,18,34,.9));border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px;padding:12px;font-size:.92rem;color:#c3cfea}
+.flow b{display:block;font-family:var(--display);color:var(--ink)}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;background:rgba(59,116,255,.08)}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:700;background:var(--accent-soft)}
+tr.sub td{color:var(--muted)}
+.price{font-family:var(--display);font-size:1.22rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.note{font-size:.88rem;color:var(--muted);border-left:3px solid var(--amber);padding-left:12px}
+.steps{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.steps div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;color:#c3cfea}
+.steps .num{font-family:var(--display);font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tl{display:flex;flex-direction:column;gap:0;border-left:3px solid var(--accent);margin-left:6px}
+.tl div{padding:8px 0 8px 16px;position:relative}
+.tl div::before{content:"";position:absolute;left:-8px;top:15px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:3px solid var(--amber)}
+.tl b{font-family:var(--display)}
+.controls{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.controls label{display:flex;flex-direction:column;gap:4px;font-size:.88rem;font-weight:600}
+.controls output{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--amber)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.tile{background:linear-gradient(160deg,rgba(59,116,255,.22),rgba(11,18,34,.95));border:1px solid var(--line);border-radius:14px;padding:14px}
+.tile .v{font-family:var(--display);font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.tile .l{font-size:.82rem;color:var(--muted)}
+.neg{color:#ff9d7a}
+.chart{background:linear-gradient(180deg,#0d1730,#080d1a);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.chart svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:#c3cfea}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cw{overflow-x:auto}
+.cw svg{min-width:560px}
+footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:.82rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){
+  html.fx-illus .pulse{animation:pulse 3.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+  html.fx-illus .dash{animation:dash 14s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-200}}
+}
+/* ---- Sections de conversion ---- */
+.cta-row{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 .95rem var(--body);padding:12px 20px;border-radius:999px;cursor:pointer;text-decoration:none;border:1px solid transparent}
+.btn.pri{background:var(--grad);color:#03102e;box-shadow:0 10px 28px -10px rgba(90,209,255,.7)}
+.btn.sec{background:rgba(255,255,255,.04);color:var(--ink);border-color:rgba(90,209,255,.45)}
+.btn:hover{filter:brightness(1.08)}
+.band{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.stat{padding:18px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(59,116,255,.18),rgba(9,15,30,.95));display:flex;flex-direction:column;gap:6px}
+.stat .big{font-family:var(--display);font-weight:800;font-size:2.1rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.stat p{font-size:.92rem;color:#c3cfea}
+.stat a{font-size:.78rem;color:var(--muted)}
+.how{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));counter-reset:st}
+.how > div{position:relative;padding:20px 18px 18px;border-radius:16px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.how > div::before{counter-increment:st;content:counter(st,decimal-leading-zero);font-family:var(--display);font-weight:800;font-size:2.4rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.how .when{font-size:.78rem;font-weight:700;color:var(--amber);letter-spacing:.04em;text-transform:uppercase}
+.how p{font-size:.92rem;color:#c3cfea}
+.sim{display:grid;gap:18px;grid-template-columns:minmax(260px,1fr) minmax(260px,1.1fr);padding:22px;border-radius:20px;border:1px solid #223463;background:linear-gradient(135deg,rgba(59,116,255,.22),rgba(6,10,20,.95))}
+@media (max-width:720px){.sim{grid-template-columns:1fr;padding:18px}}
+.sim .controls{grid-template-columns:1fr}
+.sim-out{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.sim-big{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,6vw,3.2rem);line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.dso{display:flex;flex-direction:column;gap:6px;font-size:.85rem;color:#c3cfea}
+.dso .tr{height:12px;border-radius:999px;background:#101b36;overflow:hidden}
+.dso .tr i{display:block;height:100%;border-radius:999px;transition:width .5s ease}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px}
+.chiprow span{padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.9rem}
+.chiprow span.hl{border-color:rgba(90,209,255,.5);background:rgba(90,209,255,.08)}
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq details{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 16px}
+.faq summary{cursor:pointer;list-style:none;padding:14px 0;font-weight:700;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--amber);font-family:var(--display);font-size:1.3rem;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 14px;color:#c3cfea;font-size:.94rem}
+.contact{display:grid;gap:18px;grid-template-columns:1.2fr 1fr;align-items:center;padding:26px;border-radius:20px;border:1px solid rgba(90,209,255,.4);background:linear-gradient(120deg,#1b3a8a 0%,#0d1a3f 55%,#070c18 100%)}
+@media (max-width:720px){.contact{grid-template-columns:1fr;padding:20px}}
+.coord{display:flex;flex-direction:column;gap:8px}
+.coord div{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(4,6,12,.5);border:1px solid var(--line);font-size:.92rem}
+.coord div span:first-child{color:var(--muted)}
+.coord .na{color:var(--muted);font-style:italic}
+.price-big{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:12px;background:rgba(4,6,12,.45);border:1px solid var(--line)}
+.price-big small{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.checks{list-style:none;padding:0}
+.checks li{padding-left:24px;position:relative}
+.checks li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:7px;border-left:2px solid var(--amber);border-bottom:2px solid var(--amber);transform:rotate(-45deg)}
+.card .btn{align-self:flex-start;margin-top:auto}
+.foot{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));padding-top:22px;border-top:1px solid var(--line)}
+.foot h4{margin:0 0 6px;font-family:var(--display);color:var(--ink);font-size:.95rem}
+.foot a{color:var(--muted);text-decoration:none;display:block;padding:2px 0}
+.foot a:hover{color:var(--ink)}
+
+/* ---- Bandeau des outils ---- */
+.logos{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.lg{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;padding:18px 14px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(170deg,rgba(255,255,255,.05),rgba(9,15,30,.9))}
+.lg .slot{height:56px;width:100%;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(234,240,255,.94)}
+.lg .slot img{max-height:34px;max-width:80%;object-fit:contain}
+.lg .slot.txt{background:rgba(234,240,255,.06);border:1px dashed rgba(147,163,196,.45);font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--ink)}
+.lg .slot.own{background:linear-gradient(120deg,#0e1f4d,#13307a);border:1px solid rgba(90,209,255,.5)}
+.lg b{font-size:.95rem}
+.lg span{font-size:.8rem;color:var(--muted)}
+.card .mini{height:28px;display:flex;align-items:center}
+.card .mini img{max-height:26px;max-width:140px;object-fit:contain;background:rgba(234,240,255,.94);padding:4px 8px;border-radius:8px}
+
+/* ---- Administration ---- */
+.fx-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fx-grid .fx-field{font-size:.8rem}
+.fx-grid input{width:100%}
+.rp-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:25;display:flex;gap:6px;align-items:center;padding:6px;border-radius:999px;background:rgba(6,10,20,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(90,209,255,.45);box-shadow:0 14px 40px -12px rgba(0,0,0,.85);max-width:calc(100% - 24px);overflow-x:auto}
+.rp-bar[hidden]{display:none}
+.rp-bar .lbl{font:800 .78rem var(--display);letter-spacing:.1em;text-transform:uppercase;padding:0 8px 0 12px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.rp-bar button,.rp-bar .rp-link{white-space:nowrap;font:700 .84rem var(--body);padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.rp-bar button[aria-pressed="true"]{background:var(--grad);color:#03102e;border-color:transparent}
+.rp-bar button:disabled{opacity:.45;cursor:default}
+.rp-bar .st{font-size:.78rem;color:var(--muted);padding:0 12px 0 6px;white-space:nowrap}
+.rp-bar .st.err{color:#ff9d7a}
+html.rp-admin .fx-btn{display:none!important}
+html.rp-admin main{padding-bottom:110px}
+html.rp-edit [data-tid]{outline:1px dashed rgba(90,209,255,.35);outline-offset:3px;border-radius:4px;cursor:text}
+html.rp-edit [data-tid]:hover{outline-color:rgba(90,209,255,.85)}
+html.rp-edit [data-tid]:focus{outline:2px solid var(--amber);background:rgba(90,209,255,.07)}
+html.rp-edit .rp-mod{box-shadow:-4px 0 0 0 var(--amber)}
+html.rp-edit .view.enter > *{animation:none!important}
+
+/* ---- Effets et panneau de réglages ---- */
+:root{--fx-speed:1}
+.amb{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.amb i{position:absolute;border-radius:50%;filter:blur(70px)}
+.amb i:nth-child(1){width:60vmax;height:60vmax;top:-28vmax;right:-22vmax;background:radial-gradient(circle,rgba(59,116,255,.45),transparent 65%)}
+.amb i:nth-child(2){width:55vmax;height:55vmax;bottom:-26vmax;left:-22vmax;background:radial-gradient(circle,rgba(26,47,156,.55),transparent 65%)}
+.amb i:nth-child(3){width:34vmax;height:34vmax;top:38%;left:42%;background:radial-gradient(circle,rgba(90,209,255,.16),transparent 65%)}
+header.top{z-index:15}
+main,footer{position:relative;z-index:1}
+.hero.xl{grid-template-columns:1fr 1.15fr;padding:32px}
+.hero.xl .art{grid-row:1 / span 5}
+.art-live canvas{width:100%;height:320px;display:block}
+@media (max-width:720px){.hero.xl{grid-template-columns:1fr;padding:20px}.hero.xl .art{grid-row:auto;max-width:none}.art-live canvas{height:250px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{padding:6px 12px;border-radius:999px;border:1px solid rgba(90,209,255,.35);background:rgba(90,209,255,.08);font-size:.85rem;color:#c3cfea}
+.chips b{color:var(--ink);font-family:var(--display);margin-right:5px}
+.tile.kpi .v{font-size:1.9rem}
+.tile.kpi:not(.empty) .v{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tile.kpi.empty{border-style:dashed}
+.tile.kpi.empty .v{font-size:1rem;color:var(--muted);font-family:var(--body);font-weight:600;padding:9px 0}
+input[type=number],input[type=email],input[type=tel],input[type=url],select{background:#0e1830;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:500 .92rem var(--body)}
+input[type=number]:focus,input[type=email]:focus,input[type=tel]:focus,input[type=url]:focus,select:focus{border-color:var(--accent)}
+.fx-btn{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;gap:8px;align-items:center;padding:11px 16px;border-radius:999px;border:1px solid rgba(90,209,255,.5);background:linear-gradient(120deg,#1b3a8a,#0b1222);color:var(--ink);font:700 .9rem var(--body);box-shadow:0 12px 30px -10px rgba(59,116,255,.8);cursor:pointer}
+.fx-btn[hidden]{display:none}
+.fx-btn:hover{border-color:var(--amber)}
+.fx-panel{position:fixed;top:0;right:0;bottom:0;width:min(390px,100%);z-index:30;background:rgba(6,10,20,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-left:1px solid #223463;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:16px;transform:translateX(100%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s;box-shadow:-30px 0 60px -20px rgba(0,0,0,.7)}
+.fx-panel.open{transform:none;visibility:visible;transition:transform .3s ease}
+.fx-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.fx-head > div{display:flex;flex-direction:column;gap:4px}
+.fx-x{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.3rem;line-height:1;cursor:pointer}
+.fx-sec{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:14px;padding:14px;background:linear-gradient(160deg,#0e1830,#090f1e)}
+.fx-hint{font-size:.82rem;color:var(--muted)}
+.fx-field{display:flex;flex-direction:column;gap:4px;font-size:.86rem;font-weight:600}
+.fx-field output{color:var(--amber);font-family:var(--display)}
+.fx-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.9rem;cursor:pointer}
+.sw{appearance:none;-webkit-appearance:none;width:42px;height:24px;border-radius:999px;background:#25345a;position:relative;cursor:pointer;flex:none;margin:0;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#eaf0ff;transition:transform .2s}
+.sw:checked{background:var(--accent)}
+.sw:checked::after{transform:translateX(18px)}
+.sw:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#0a1226;border:1px solid var(--line);border-radius:12px;padding:4px}
+.seg button{border:0;border-radius:9px;padding:8px 4px;background:transparent;color:#c3cfea;font:700 .82rem var(--body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--grad);color:#03102e}
+.fx-links{display:flex;flex-direction:column;gap:6px}
+.fx-links a{display:flex;justify-content:space-between;text-decoration:none;color:var(--ink);font-weight:600;font-size:.88rem;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(59,116,255,.08)}
+.fx-links a::after{content:"→";color:var(--amber)}
+.fx-ghost{align-self:flex-start;font:600 .86rem var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.adm-open{align-self:flex-start;font:700 .9rem var(--body);padding:9px 16px;border-radius:999px;border:0;background:var(--grad);color:#03102e;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){
+  html.fx-ambient .amb i{animation:fxDrift calc(26s / var(--fx-speed)) ease-in-out infinite alternate}
+  html.fx-ambient .amb i:nth-child(2){animation-duration:calc(34s / var(--fx-speed));animation-direction:alternate-reverse}
+  @keyframes fxDrift{to{transform:translate(-9vmax,7vmax) scale(1.12)}}
+  html.fx-trans-rise .view.enter > *{animation:fxRise calc(.6s / var(--fx-speed)) cubic-bezier(.2,.7,.2,1) both}
+  html.fx-trans-rise .view.enter > *:nth-child(2){animation-delay:calc(.07s / var(--fx-speed))}
+  html.fx-trans-rise .view.enter > *:nth-child(3){animation-delay:calc(.14s / var(--fx-speed))}
+  html.fx-trans-rise .view.enter > *:nth-child(4){animation-delay:calc(.21s / var(--fx-speed))}
+  html.fx-trans-rise .view.enter > *:nth-child(n+5){animation-delay:calc(.28s / var(--fx-speed))}
+  @keyframes fxRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  html.fx-trans-fade .view.enter{animation:fxFade calc(.45s / var(--fx-speed)) ease both}
+  @keyframes fxFade{from{opacity:0}to{opacity:1}}
+  html.fx-hover .card,html.fx-hover .tile,html.fx-hover .flow div,html.fx-hover .steps div{transition:transform .25s ease,box-shadow .25s ease}
+  html.fx-hover .card:hover,html.fx-hover .tile:hover,html.fx-hover .flow div:hover,html.fx-hover .steps div:hover{transform:translateY(-3px);box-shadow:0 14px 34px -14px rgba(59,116,255,.65)}
+  html.fx-sheen .hero{position:relative}
+  html.fx-sheen .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.07) 50%,transparent 58%);background-size:260% 100%;animation:fxSheen calc(10s / var(--fx-speed)) ease-in-out infinite}
+  @keyframes fxSheen{0%{background-position:130% 0}55%,100%{background-position:-130% 0}}
+}
+</style>
+</head>
+<body>
+<div class="amb" aria-hidden="true"><i></i><i></i><i></i></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ad1ff"/><stop offset="1" stop-color="#2f5dff"/></linearGradient>
+<linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b74ff"/><stop offset="1" stop-color="#3b74ff" stop-opacity=".12"/></linearGradient>
+<linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ad1ff"/><stop offset="1" stop-color="#5ad1ff" stop-opacity=".15"/></linearGradient>
+<radialGradient id="gG"><stop offset="0" stop-color="#5ad1ff" stop-opacity=".85"/><stop offset="1" stop-color="#5ad1ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gS" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#2a54d8"/><stop offset=".6" stop-color="#0d1c52"/><stop offset="1" stop-color="#050a1c"/></radialGradient>
+</defs></svg>
+<header class="top">
+  <div class="bar">
+    <div class="brand">Cash &amp; Recouvrement<small>Projet de ligne de services · document de travail</small></div>
+    <nav aria-label="Sections">
+      <a href="#solution">La solution</a>
+      <a href="#organisation">Organisation</a>
+      <a href="#outils">Outils</a>
+      <a href="#offres">Offres</a>
+      <a href="#demarche">Démarche commerciale</a>
+      <a href="#budget">Budget</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- SOLUTION -->
+<section class="view" id="v-solution">
+  <div class="stack hero xl">
+    <span class="eyebrow">La solution de recouvrement</span>
+    <h1>Un recouvrement externalisé qui tient ses résultats dans la durée</h1>
+    <p class="lead">Nous recouvrons les créances de nos clients depuis l'île Maurice, avec un pilotage en France. Les indicateurs ci-dessous viennent des missions réellement conduites.</p>
+    <div class="cta-row"><button type="button" class="btn pri" data-goto="contact">Demander un diagnostic gratuit</button><button type="button" class="btn sec" data-goto="simulateur">Estimer ma trésorerie libérée</button></div>
+    <div class="chips"><span><b>J+1</b>relance dès l'échéance</span><span><b>24 h</b>mise à jour du reporting</span><span><b>FR · EN</b>plateau bilingue</span></div>
+    <div class="art art-live"><canvas id="hero-cv" role="img" aria-label="Animation : des créances échues passent par le plateau de relance et remplissent la trésorerie du client"></canvas></div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Le contexte</span>
+    <h2>Les retards de paiement pèsent sur la trésorerie des entreprises françaises</h2>
+    <div class="band">
+      <div class="stat"><span class="big">13 Md€</span><p>de trésorerie manquent aux PME et microentreprises à cause des retards de paiement.</p><a href="https://www.banque-france.fr/fr/communiques-de-presse/le-rapport-annuel-2025-de-lobservatoire-des-delais-de-paiement-des-resultats-contrastes-selon-les">Observatoire des délais de paiement, rapport 2025</a></div>
+      <div class="stat"><span class="big">1 sur 2</span><p>Plus d'une grande entreprise sur deux paie ses fournisseurs au-delà du délai légal de 60 jours.</p><a href="https://www.banque-france.fr/system/files/2025-10/BDF260_5_Delais_de_paiement.pdf">Bulletin de la Banque de France, données 2024</a></div>
+      <div class="stat"><span class="big">68 564</span><p>défaillances d'entreprises en France sur l'année 2025, un niveau record.</p><a href="https://www.banque-france.fr/fr/statistiques/entreprises/defaillances-dentreprises-2025-12">Banque de France, défaillances à fin décembre 2025</a></div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Comment ça marche</span>
+    <h2>Quatre étapes, de votre balance âgée à vos encaissements</h2>
+    <div class="how">
+      <div><span class="when">Semaine 1</span><h3>Import du portefeuille</h3><p>Balance âgée et factures importées depuis votre ERP, par connecteur, API ou fichier. Pas de montant minimum.</p></div>
+      <div><span class="when">Dès J+1</span><h3>Relance amiable</h3><p>Appels, mails, SMS et courriers depuis notre plateau à Maurice, selon un scénario adapté à chaque segment de clients.</p></div>
+      <div><span class="when">Si besoin</span><h3>Escalade</h3><p>Mise en demeure, puis injonction de payer ou saisie confiées à nos avocats et commissaires de justice partenaires.</p></div>
+      <div><span class="when">Chaque jour</span><h3>Suivi en temps réel</h3><p>Statut de chaque dossier, encaissements et DSO dans votre tableau de bord Power BI, et un comité mensuel.</p></div>
+    </div>
+  </div>
+
+  <div class="stack" id="simulateur">
+    <span class="eyebrow">Simulateur</span>
+    <h2>Combien de trésorerie pouvez-vous libérer ?</h2>
+    <div class="sim">
+      <div class="controls">
+        <label for="s-ca">Chiffre d'affaires annuel <output id="o-s-ca"></output><input type="range" id="s-ca" min="5" max="500" step="5" value="25"></label>
+        <label for="s-d0">DSO actuel <output id="o-s-d0"></output><input type="range" id="s-d0" min="20" max="150" step="1" value="65"></label>
+        <label for="s-d1">DSO visé <output id="o-s-d1"></output><input type="range" id="s-d1" min="15" max="120" step="1" value="50"></label>
+        <label for="s-tx">Coût de votre financement court terme <output id="o-s-tx"></output><input type="range" id="s-tx" min="1" max="10" step="0.5" value="5"></label>
+      </div>
+      <div class="sim-out">
+        <div><div class="l" style="color:var(--muted);font-size:.85rem">Trésorerie libérée</div><div class="sim-big" id="s-cash"></div></div>
+        <div><div class="l" style="color:var(--muted);font-size:.85rem">Frais financiers évités chaque année</div><div class="price" id="s-fin"></div></div>
+        <div class="dso"><span id="s-l0"></span><div class="tr"><i id="s-b0" style="background:#5a6b91"></i></div><span id="s-l1"></span><div class="tr"><i id="s-b1" style="background:var(--grad)"></i></div></div>
+        <p class="note">Simulation indicative : trésorerie libérée = chiffre d'affaires × (DSO actuel − DSO visé) / 365. Le gain réel dépend de votre portefeuille.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Nos résultats</span>
+    <h2>Nos résultats depuis le lancement</h2>
+    <div class="tiles" id="kpi"></div>
+    <p class="note">Les indicateurs restent vides tant que les données réelles ne sont pas saisies dans les réglages. Aucune valeur n'est estimée à leur place.</p>
+  </div>
+
+  <div class="stack">
+    <h2 id="cmp-title" class="rp-noedit"></h2>
+    <p class="lead rp-noedit" id="cmp-lead"></p>
+    <div class="tw"><table id="cmp"></table></div>
+    <div class="grid">
+      <div class="card key">
+        <span class="tag">Chargé en interne</span>
+        <h3>Ce que le salaire ne dit pas</h3>
+        <ul>
+          <li>Une seule personne : absences, congés et départs interrompent le recouvrement.</li>
+          <li>Une capacité limitée, en général quelques centaines de dossiers actifs.</li>
+          <li>Formation, outils et encadrement à la charge de l'entreprise.</li>
+        </ul>
+      </div>
+      <div class="card alt">
+        <span class="tag am">Externalisation</span>
+        <h3>Ce que le BPO apporte</h3>
+        <ul>
+          <li>Une équipe qui remplace le poste en cas d'absence, sans rupture de relance.</li>
+          <li>Un reporting mensuel et une expertise crédit management incluse.</li>
+          <li>Une part variable : le coût suit les encaissements, pas seulement le temps passé.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Intégrations</span>
+    <h2>Vos factures arrivent chez nous sans ressaisie</h2>
+    <div class="chiprow"><span class="hl">Odoo, connecteur dédié</span><span>Sage</span><span>Cegid</span><span>SAP</span><span>Microsoft Dynamics</span><span>Pennylane</span><span>Export Excel ou CSV</span><span>API</span></div>
+    <p class="note">Hors Odoo, l'import passe par l'export standard de votre ERP ou par API. Un connecteur dédié se développe pour les volumes importants.</p>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Nos engagements</span>
+    <h2>Recouvrer sans abîmer la relation client</h2>
+    <div class="grid g4">
+      <div class="card"><h3>Votre marque, votre ton</h3><p>Les relances suivent une charte validée avec vous. Vos meilleurs clients reçoivent un traitement adapté.</p></div>
+      <div class="card"><h3>Transparence totale</h3><p>Chaque appel est enregistré, chaque action tracée et visible dans votre tableau de bord.</p></div>
+      <div class="card"><h3>Aucun frais pour vos clients</h3><p>Nos honoraires sont à votre charge, conformément à la loi : vos débiteurs ne paient aucun frais de recouvrement amiable.</p></div>
+      <div class="card"><h3>Données protégées</h3><p>Mandat écrit, accord de traitement RGPD, accès par rôle et hébergement sécurisé.</p></div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Questions fréquentes</span>
+    <h2>Vos questions avant de nous confier vos créances</h2>
+    <div class="faq">
+      <details><summary>Quelles créances pouvez-vous prendre en charge ?</summary><p>Les créances B2B en priorité, sans montant minimum, échues ou non. Les créances sur particuliers sont étudiées au cas par cas.</p></details>
+      <details><summary>Combien de temps faut-il pour démarrer ?</summary><p>Une à deux semaines : audit flash du portefeuille, validation de la charte de relance, import des données, puis premières relances.</p></details>
+      <details><summary>Mes clients sauront-ils que le recouvrement est externalisé ?</summary><p>Vous choisissez : relance en marque blanche, au nom de votre service client, ou en notre nom. Le choix se fait par segment de clients.</p></details>
+      <details><summary>Que se passe-t-il si un client conteste sa facture ?</summary><p>Le litige est qualifié, les pièces collectées, puis le dossier vous est remonté avec une proposition d'action. La relance est suspendue pendant l'instruction.</p></details>
+      <details><summary>Comment êtes-vous rémunérés ?</summary><p>Une part fixe mensuelle qui couvre l'équipe dédiée, et une part variable sur les sommes encaissées. Le détail figure dans nos offres.</p></details>
+      <details><summary>Puis-je arrêter le contrat ?</summary><p>Oui. Le BPO 1 an se reconduit tacitement avec un préavis de 3 mois. Toutes nos offres prévoient la restitution complète des dossiers et des données.</p></details>
+    </div>
+  </div>
+
+  <div class="contact" id="contact">
+    <div class="stack">
+      <span class="eyebrow">Diagnostic gratuit</span>
+      <h2>Trente minutes pour mesurer le cash qui dort dans votre poste clients</h2>
+      <p class="lead">Envoyez-nous votre balance âgée : nous revenons vers vous avec un gisement chiffré et la formule adaptée.</p>
+    </div>
+    <div class="coord" id="coord"></div>
+  </div>
+</section>
+
+<!-- ORGANISATION -->
+<section class="view" id="v-organisation">
+  <div class="stack hero">
+    <span class="eyebrow">L'organisation</span>
+    <h1>Votre poste clients opéré depuis l'île Maurice, piloté en France</h1>
+    <p class="lead">Un plateau de recouvrement francophone à Maurice exécute les relances. Une équipe en France métropolitaine pilote, contrôle et traite le contentieux. Le conseil cash et BFR ouvre la relation et l'améliore dans la durée.</p>
+  <div class="art"><svg viewBox="0 0 340 240" role="img" aria-label="Illustration : un globe reliant Paris et Port-Louis">
+<circle cx="170" cy="122" r="100" fill="url(#gS)" stroke="#3b74ff" stroke-opacity=".6"/>
+<g fill="none" stroke="#5ad1ff" stroke-opacity=".22"><ellipse cx="170" cy="122" rx="100" ry="34"/><ellipse cx="170" cy="122" rx="100" ry="70"/><ellipse cx="170" cy="122" rx="38" ry="100"/><ellipse cx="170" cy="122" rx="74" ry="100"/><line x1="70" y1="122" x2="270" y2="122"/></g>
+<path d="M128 78 Q215 60 226 168" fill="none" stroke="url(#gA)" stroke-width="2.5" stroke-dasharray="6 6" class="dash"/>
+<circle cx="128" cy="78" r="18" fill="url(#gG)" class="pulse"/><circle cx="128" cy="78" r="5" fill="#eaf0ff"/>
+<circle cx="226" cy="168" r="18" fill="url(#gG)" class="pulse"/><circle cx="226" cy="168" r="5" fill="#5ad1ff"/>
+<text x="118" y="60" text-anchor="end" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff">Paris · pilotage</text>
+<text x="226" y="198" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff">Port-Louis · exécution</text>
+</svg></div>
+  </div>
+
+  <div class="flow" aria-label="Circuit d'un dossier">
+    <div><b>1. Client</b>Balance âgée et pièces transmises depuis l'ERP</div>
+    <div><b>2. France</b>Cadrage, segmentation, stratégie de relance</div>
+    <div><b>3. Maurice</b>Relances écrites et téléphoniques, promesses, lettrage</div>
+    <div><b>4. France</b>Litiges complexes, mise en demeure, contentieux</div>
+    <div><b>5. Client</b>Encaissements, reporting, comité mensuel</div>
+  </div>
+
+  <div class="grid">
+    <div class="card key">
+      <span class="tag">Île Maurice</span>
+      <h3>Nos capacités d'exécution</h3>
+      <ul>
+        <li>Plateau francophone et anglophone, calé sur les horaires français (2 à 3 heures de décalage).</li>
+        <li>Relances amiables par téléphone, mail, SMS et courrier.</li>
+        <li>Négociation et suivi des plans d'apurement.</li>
+        <li>Qualification des litiges et collecte des pièces manquantes.</li>
+        <li>Lettrage, rapprochement des encaissements, mise à jour des dossiers.</li>
+        <li>Back-office crédit management : fiches clients, limites, demandes d'agrément.</li>
+        <li>Production des tableaux de bord.</li>
+      </ul>
+      <p class="note">Encadrement prévu : un chef de plateau, puis un team leader pour huit conseillers.</p>
+    </div>
+    <div class="card key">
+      <span class="tag">France métropolitaine</span>
+      <h3>Nos capacités de pilotage</h3>
+      <ul>
+        <li>Relation avec le DAF, comités de lancement et revues de compte.</li>
+        <li>Crédit management senior : politique de crédit, scoring, arbitrages.</li>
+        <li>Gestion de l'assurance-crédit et des relations avec les assureurs.</li>
+        <li>Mises en demeure, injonctions de payer, liaison avec avocats et commissaires de justice.</li>
+        <li>Contrôle qualité des appels et des scripts.</li>
+        <li>Conformité : mandat de recouvrement, RGPD, encadrement des transferts de données vers Maurice.</li>
+      </ul>
+      <p class="note">Le cadre réglementaire du recouvrement amiable pour compte de tiers et les transferts hors UE sont à valider avec un avocat avant le lancement.</p>
+    </div>
+    <div class="card alt">
+      <span class="tag am">Conseil</span>
+      <h3>Notre offre conseil cash et BFR</h3>
+      <ul>
+        <li>Diagnostic BFR et audit flash du poste clients.</li>
+        <li>Refonte du cycle Order to Cash et de la politique de crédit.</li>
+        <li>Culture cash : objectifs, rituels, incentives commerciaux.</li>
+        <li>Financement court terme : affacturage, assurance-crédit, reverse factoring.</li>
+        <li>Trésorerie : prévisions, cash pooling, outillage.</li>
+      </ul>
+      <p>Le conseil ouvre la porte et chiffre le gisement. Le BPO installe la récurrence.</p>
+    </div>
+  </div>
+
+  <div class="stack">
+    <h2>Qui fait quoi</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Profil</th><th>Lieu</th><th>Tâches</th><th>Arrivée</th></tr></thead>
+      <tbody>
+        <tr><td>Pilote d'offre (associé)</td><td>France</td><td>Développement commercial, relation DAF, arbitrages, revues de compte</td><td>Jour 1</td></tr>
+        <tr><td>Chef de plateau</td><td>Maurice</td><td>Recrutement, planning, cadenciers, qualité quotidienne</td><td>Avant le premier contrat</td></tr>
+        <tr><td>Conseillers recouvrement</td><td>Maurice</td><td>Relances, promesses de paiement, plans d'apurement, saisie</td><td>À chaque contrat</td></tr>
+        <tr><td>Team leaders</td><td>Maurice</td><td>Écoutes, coaching, tenue des objectifs par portefeuille</td><td>Un pour huit conseillers</td></tr>
+        <tr><td>Analyste data</td><td>Maurice</td><td>Intégration des balances âgées, Power BI, qualité des données</td><td>Premier reporting client</td></tr>
+        <tr><td>Crédit manager et contentieux</td><td>France</td><td>Politique de crédit, assurance-crédit, dossiers judiciaires</td><td>Premier BPO signé</td></tr>
+        <tr><td>Qualité et conformité</td><td>France</td><td>Scripts, RGPD, incidents, audits</td><td>Temps partiel dès l'année 1</td></tr>
+        <tr><td>Business developer</td><td>France</td><td>Prospection, organisation du roadshow</td><td>Année 3, selon le volume</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section class="view" id="v-outils">
+  <div class="stack hero">
+    <span class="eyebrow">Nos outils</span>
+    <h1>Quatre briques, une seule chaîne de traitement</h1>
+    <p class="lead">Chaque créance suit le même chemin : importée de l'ERP du client, travaillée dans notre outil de recouvrement, relancée via Diabolocom, suivie dans Power BI. L'IA accélère chaque étape sous contrôle humain.</p>
+  <div class="art"><svg viewBox="0 0 340 240" role="img" aria-label="Illustration : quatre outils reliés en chaîne">
+<path d="M62 150 H278" stroke="url(#gA)" stroke-width="2.5" stroke-dasharray="5 6" class="dash"/>
+<g stroke="#3b74ff" stroke-opacity=".8" fill="#0b1630">
+<rect x="22" y="112" width="64" height="76" rx="14"/><rect x="100" y="112" width="64" height="76" rx="14"/><rect x="178" y="112" width="64" height="76" rx="14"/><rect x="256" y="112" width="64" height="76" rx="14"/></g>
+<g fill="none" stroke="url(#gA)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="54" cy="136" rx="15" ry="6"/><path d="M39 136v22c0 3.300000 6.700000 6 15 6s15-2.700000 15-6v-22M39 147c0 3.300000 6.700000 6 15 6s15-2.700000 15-6"/>
+<path d="M119 130h20l8 8v28h-28z"/><path d="M124 148h16M124 156h11"/>
+<path d="M196 152v-6a14 14 0 0 1 28 0v6"/><rect x="192" y="150" width="8" height="13" rx="3"/><rect x="220" y="150" width="8" height="13" rx="3"/><path d="M224 163c0 5-5 7-11 7"/>
+<path d="M272 168v-12M282 168v-24M292 168v-17M302 168v-32"/><path d="M268 170h40"/>
+</g>
+<circle cx="170" cy="52" r="34" fill="url(#gG)" class="pulse"/>
+<path d="M170 30l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="url(#gA)"/>
+<g stroke="#5ad1ff" stroke-opacity=".45" fill="none"><path d="M150 66 Q70 76 56 110"/><path d="M162 76 Q140 92 134 110"/><path d="M178 76 Q200 92 208 110"/><path d="M190 66 Q272 76 286 110"/></g>
+<text x="170" y="100" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff">IA sous contrôle humain</text>
+<g font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" text-anchor="middle" font-size="10"><text x="54" y="206">ERP</text><text x="132" y="206">Recouvrement</text><text x="210" y="206">Diabolocom</text><text x="288" y="206">Power BI</text></g>
+</svg></div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Notre pile technique</span>
+    <div class="logos" id="logos">
+      <div class="lg"><div class="slot" data-logo="diabolocom"></div><b>Diabolocom</b><span>Centre de contact, outil socle</span></div>
+      <div class="lg"><div class="slot own"><svg viewBox="0 0 160 40" height="34" role="img" aria-label="Outil de recouvrement maison"><rect x="2" y="6" width="28" height="28" rx="8" fill="url(#gA)"/><path d="M10 21l5 5 9-11" fill="none" stroke="#03102e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><text x="38" y="26" font-family="Syne,sans-serif" font-weight="800" font-size="16" fill="#eaf0ff">Recouvr<tspan fill="#5ad1ff">Pro</tspan></text></svg></div><b>Notre outil de recouvrement</b><span>Base recouvrement, développée en interne</span></div>
+      <div class="lg"><div class="slot" data-logo="powerbi"></div><b>Power BI</b><span>Suivi des dossiers et des statuts</span></div>
+      <div class="lg"><div class="slot" data-logo="claude"></div><b>Claude</b><span>Automatisation des tâches</span></div>
+      <div class="lg"><div class="slot" data-logo="copilot"></div><b>Microsoft Copilot</b><span>Assistant dans Microsoft 365</span></div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div><b>ERP du client</b>Balance âgée, factures, encaissements</div>
+    <div><b>Outil de recouvrement</b>Dossiers, scénarios, courriers</div>
+    <div><b>Diabolocom</b>Appels, mails, SMS, enregistrements</div>
+    <div><b>Power BI</b>Statuts, DSO, performance</div>
+  </div>
+
+  <div class="grid">
+    <div class="card key">
+      <span class="tag">Socle</span>
+      <h3>Diabolocom, le centre de contact</h3>
+      <p>Plateforme française de centre de contact dans le cloud. Elle relie les deux sites sur un même environnement.</p>
+      <ul>
+        <li>Campagnes d'appels sortants par segment de créances.</li>
+        <li>Numéros français et serveur vocal pour les rappels de débiteurs.</li>
+        <li>Enregistrement et transcription des appels.</li>
+        <li>Supervision en direct depuis la France.</li>
+        <li>Connexion à l'outil de recouvrement : la fiche du dossier s'ouvre à l'appel.</li>
+      </ul>
+    </div>
+    <div class="card key">
+      <span class="tag">Base recouvrement</span>
+      <h3>Notre outil de recouvrement</h3>
+      <p>Développé en interne, multi-portefeuilles, un espace par client.</p>
+      <ul>
+        <li>Scénarios de relance par ancienneté, montant et risque.</li>
+        <li>Génération des courriers et des mises en demeure.</li>
+        <li>Plans d'apurement et suivi des promesses de paiement.</li>
+        <li>Suivi des litiges et du contentieux, vue Kanban.</li>
+        <li>Historique complet, opposable en cas de procédure.</li>
+      </ul>
+    </div>
+    <div class="card key">
+      <span class="tag">Suivi</span>
+      <h3>Power BI, le suivi précis des dossiers</h3>
+      <ul>
+        <li>Statut de chaque dossier : à relancer, promesse, litige, plan, contentieux, soldé.</li>
+        <li>Balance âgée, DSO, retard moyen, taux de recouvrement.</li>
+        <li>Encaissements du mois, base de calcul de la part variable.</li>
+        <li>Joignabilité et productivité par conseiller.</li>
+        <li>Accès client en lecture, mis à jour chaque jour.</li>
+      </ul>
+    </div>
+    <div class="card alt">
+      <span class="tag am">Automatisation</span>
+      <h3>Claude et Copilot</h3>
+      <p>Les assistants préparent, le conseiller valide. Exemples d'usage :</p>
+      <ul>
+        <li>Résumé de l'appel et prochaine action, à partir de la transcription.</li>
+        <li>Relance écrite adaptée au profil du payeur et à l'historique.</li>
+        <li>Tri des mails entrants : promesse, litige, demande de pièce, contestation.</li>
+        <li>Chronologie et bordereau de pièces pour un dossier contentieux.</li>
+        <li>Contrôle des appels par rapport au script et aux règles de contact.</li>
+        <li>Propositions de lettrage entre encaissements et factures.</li>
+        <li>Commentaire mensuel du reporting et compte rendu de comité (Copilot dans Excel, Outlook et Teams).</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Points à cadrer : accord de traitement des données avec chaque éditeur, information du débiteur sur l'enregistrement des appels, aucune décision automatisée sans validation humaine.</p>
+</section>
+
+<!-- OFFRES -->
+<section class="view" id="v-offres">
+  <div class="stack hero">
+    <span class="eyebrow">Nos offres</span>
+    <h1>Quatre formules, de l'action ponctuelle au partenariat de trois ans</h1>
+    <p class="lead">Le prix suit toujours la même règle : une part fixe qui couvre les heures de l'équipe dédiée à Maurice, vendues 18 € de l'heure, et une part variable sur les sommes encaissées.</p>
+  <div class="art"><svg viewBox="0 0 340 240" role="img" aria-label="Illustration : quatre formules de durée croissante">
+<line x1="20" y1="200" x2="320" y2="200" stroke="#3b74ff" stroke-opacity=".5"/>
+<rect x="32" y="146" width="56" height="54" rx="8" fill="url(#gB)" stroke="#3b74ff"/>
+<rect x="104" y="104" width="56" height="96" rx="8" fill="url(#gB)" stroke="#3b74ff"/>
+<rect x="176" y="48" width="56" height="152" rx="8" fill="url(#gB)" stroke="#3b74ff"/>
+<rect x="252" y="122" width="56" height="78" rx="8" fill="url(#gC)" stroke="#5ad1ff" stroke-dasharray="5 4"/>
+<circle cx="204" cy="48" r="20" fill="url(#gG)" class="pulse"/>
+<path d="M60 140 L132 98 L204 42" fill="none" stroke="url(#gA)" stroke-width="2.5" stroke-linecap="round"/>
+<g fill="#eaf0ff"><circle cx="60" cy="140" r="4"/><circle cx="132" cy="98" r="4"/><circle cx="204" cy="42" r="5"/></g>
+<g font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" text-anchor="middle"><text x="60" y="178">3 à 6</text><text x="60" y="191" font-weight="500">mois</text><text x="132" y="178">1 an</text><text x="204" y="178">3 ans</text><text x="280" y="170" font-size="10">Cellule</text><text x="280" y="183" font-size="10" font-weight="500">liquidative</text></g>
+<g font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" text-anchor="middle" fill="#93a3c4" font-weight="500"><text x="60" y="218">Coup de poing</text><text x="168" y="218">BPO</text></g>
+</svg></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card key">
+      <span class="tag">3 à 6 mois</span>
+      <h3>Action coup de poing</h3>
+      <p>Pour apurer un stock de créances échues avant une clôture, une levée de fonds ou une cession.</p>
+      <ul class="checks">
+        <li>Audit flash et segmentation du stock.</li>
+        <li>Deux conseillers dédiés, relances intensives.</li>
+        <li>Point hebdomadaire, bilan final chiffré.</li>
+      </ul>
+      <div class="price-big"><small>Tarif</small><div class="price">25 k€ fixe + 6 % des encaissements</div></div>
+      <p class="note">Argument : du cash en quelques semaines, sans engagement long. Le bilan sert de base à une proposition de BPO.</p>
+      <button type="button" class="btn pri" data-goto="contact">Demander une proposition</button>
+    </div>
+    <div class="card key">
+      <span class="tag">12 mois</span>
+      <h3>BPO 1 an</h3>
+      <p>Pour une ETI ou une PME qui veut confier son recouvrement sans recruter.</p>
+      <ul class="checks">
+        <li>Relance continue de tout le poste clients, avant et après échéance.</li>
+        <li>Crédit management : politique de crédit, scoring, limites, fiches clients.</li>
+        <li>Assurance-crédit : demandes d'agrément, déclarations de sinistre, suivi de la police.</li>
+        <li>Reporting Power BI et comité mensuel.</li>
+      </ul>
+      <div class="price-big"><small>Tarif</small><div class="price">48 k€ fixe par an + 3 % des encaissements sur échu</div></div>
+      <p class="note">Renouvellement : tacite reconduction, préavis de 3 mois, indexation annuelle, revue des objectifs de DSO.</p>
+      <button type="button" class="btn pri" data-goto="contact">Demander une proposition</button>
+    </div>
+    <div class="card key">
+      <span class="tag">36 mois</span>
+      <h3>BPO 3 ans</h3>
+      <p>Pour un groupe qui veut transformer durablement sa fonction crédit.</p>
+      <ul class="checks">
+        <li>Tout le périmètre du BPO 1 an.</li>
+        <li>Intégration à l'ERP et refonte du cycle Order to Cash.</li>
+        <li>Renégociation de l'assurance-crédit et des lignes d'affacturage.</li>
+        <li>Engagements de résultat sur le DSO et le taux d'échu.</li>
+      </ul>
+      <div class="price-big"><small>Tarif</small><div class="price">45 k€ fixe par an + 2,5 % des encaissements sur échu</div></div>
+      <p class="note">Renouvellement : clause de revoyure annuelle, sortie possible si les engagements de service ne sont pas tenus, réversibilité garantie.</p>
+      <button type="button" class="btn pri" data-goto="contact">Demander une proposition</button>
+    </div>
+    <div class="card alt">
+      <span class="tag am">Offre spéciale · 6 à 9 mois</span>
+      <h3>Cellule liquidative</h3>
+      <p>Pour recouvrer un portefeuille en extinction : arrêt d'activité, cession de branche, fermeture de filiale, dossiers confiés par un mandataire.</p>
+      <ul class="checks">
+        <li>Reprise des dossiers et des pièces, fiabilisation des soldes.</li>
+        <li>Relance jusqu'à extinction, transactions et abandons proposés à la validation.</li>
+        <li>Reporting adapté aux organes de la procédure ou au cédant.</li>
+      </ul>
+      <div class="price-big"><small>Tarif</small><div class="price">30 k€ fixe + 8 % des encaissements</div></div>
+      <p class="note">Argument : une équipe disponible tout de suite, quand les équipes internes sont parties. Cadre d'intervention à valider avec les mandataires.</p>
+      <button type="button" class="btn pri" data-goto="contact">Demander une proposition</button>
+    </div>
+  </div>
+
+  <div class="stack">
+    <h2>Comparer les formules</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Formule</th><th>Équipe Maurice dédiée</th><th class="n">Part fixe</th><th class="n">Part variable</th><th class="n">Encaissements visés</th><th class="n">CA par contrat</th></tr></thead>
+      <tbody>
+        <tr><td>Action coup de poing</td><td>2 ETP sur 5 mois</td><td class="n">25 k€</td><td class="n">6 %</td><td class="n">450 k€</td><td class="n">52 k€</td></tr>
+        <tr><td>BPO 1 an</td><td>1,6 ETP</td><td class="n">48 k€ par an</td><td class="n">3 %</td><td class="n">1,2 M€ par an</td><td class="n">84 k€ par an</td></tr>
+        <tr><td>BPO 3 ans</td><td>1,5 ETP</td><td class="n">45 k€ par an</td><td class="n">2,5 %</td><td class="n">1,2 M€ par an</td><td class="n">75 k€ par an</td></tr>
+        <tr><td>Cellule liquidative</td><td>1,5 ETP sur 8 mois</td><td class="n">30 k€</td><td class="n">8 %</td><td class="n">500 k€</td><td class="n">70 k€</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Base de calcul du fixe : 139 heures par mois et par ETP, à 18 € de l'heure. Les taux de commission et les encaissements visés sont des hypothèses de travail, à ajuster à chaque portefeuille après l'audit flash.</p>
+  </div>
+</section>
+
+<!-- DEMARCHE -->
+<section class="view" id="v-demarche">
+  <div class="stack hero">
+    <span class="eyebrow">La démarche commerciale</span>
+    <h1>Un flyer, un roadshow, 1 à 3 missions par région</h1>
+    <p class="lead">Deux sources de clients : le réseau du cabinet, activé par les associés en région, et des prospects externes. Le BFR sert de sujet d'entrée, le recouvrement de réponse concrète.</p>
+  <div class="art"><svg viewBox="0 0 340 240" role="img" aria-label="Illustration : l'Hexagone parcouru par un roadshow en six étapes">
+<path d="M170 22 L268 62 L282 150 L204 214 L112 206 L58 122 L92 54 Z" fill="url(#gS)" stroke="#3b74ff" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M176 74 L236 96 L214 142 L130 168 L96 118 L176 74" fill="none" stroke="url(#gA)" stroke-width="2.2" stroke-dasharray="5 6" class="dash"/>
+<circle cx="176" cy="74" r="18" fill="url(#gG)" class="pulse"/>
+<g fill="#5ad1ff" stroke="#04060c" stroke-width="1.5"><circle cx="176" cy="74" r="7" fill="#eaf0ff"/><circle cx="236" cy="96" r="6"/><circle cx="214" cy="142" r="6"/><circle cx="130" cy="168" r="6"/><circle cx="96" cy="118" r="6"/><circle cx="170" cy="46" r="6"/></g>
+<g transform="translate(266 26) rotate(-12)"><path d="M0 14 L44 0 L30 34 L20 21 Z" fill="url(#gA)"/><path d="M20 21 L44 0" stroke="#04060c" stroke-width="1.5"/></g>
+<text x="176" y="100" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff">6 régions en année 1</text>
+<text x="170" y="234" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" fill="#93a3c4" font-weight="500">1 à 3 missions par région</text>
+</svg></div>
+  </div>
+
+  <div class="grid">
+    <div class="card key">
+      <span class="tag">Étape 1</span>
+      <h3>Plan marketing : le flyer</h3>
+      <ul>
+        <li>Un recto verso : le coût du retard de paiement, les quatre formules, un cas chiffré.</li>
+        <li>Envoi à l'ensemble des contacts du cabinet, par mail et par courrier ciblé. Base à définir avec le cabinet.</li>
+        <li>Relais par les associés et les directeurs de bureau auprès de leurs clients.</li>
+        <li>Offre d'appel : un diagnostic BFR gratuit, restitué en 30 minutes.</li>
+        <li>Reprise sur LinkedIn et dans la presse financière.</li>
+      </ul>
+    </div>
+    <div class="card key">
+      <span class="tag">Étape 2</span>
+      <h3>Roadshow en région</h3>
+      <ul>
+        <li>Une matinée par région, dans le bureau local du cabinet.</li>
+        <li>Format : 45 minutes sur le BFR et les délais de paiement, un témoignage, puis des rendez-vous individuels.</li>
+        <li>Chaque participant repart avec la proposition d'un entretien sur son propre BFR.</li>
+        <li>Invités : clients du réseau, prospects externes, banquiers, assureurs-crédit et mandataires prescripteurs.</li>
+      </ul>
+    </div>
+    <div class="card alt">
+      <span class="tag am">Étape 3</span>
+      <h3>Du rendez-vous à la mission</h3>
+      <ul>
+        <li>Rendez-vous BFR : lecture de la balance âgée avec le DAF.</li>
+        <li>Audit flash : gisement de cash chiffré sous 10 jours.</li>
+        <li>Propale : la formule adaptée, souvent un coup de poing.</li>
+        <li>Bilan de mission : proposition de BPO 1 an ou 3 ans.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack">
+    <h2>L'entonnoir visé par région</h2>
+    <div class="steps">
+      <div><div class="num">400</div>contacts reçoivent le flyer</div>
+      <div><div class="num">30</div>inscrits à la matinée</div>
+      <div><div class="num">18</div>participants présents</div>
+      <div><div class="num">8</div>rendez-vous BFR</div>
+      <div><div class="num">4</div>propales</div>
+      <div><div class="num">2</div>missions signées (objectif 1 à 3)</div>
+    </div>
+    <p class="note">Hypothèses de départ : 60 % des missions issues du réseau du cabinet et 40 % de prospects externes en année 1, puis 50/50. Une propale sur deux signée.</p>
+  </div>
+
+  <div class="stack">
+    <h2>Le calendrier du roadshow</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Année</th><th>Régions</th><th class="n">Rendez-vous</th><th class="n">Propales</th><th class="n">Missions</th></tr></thead>
+      <tbody>
+        <tr><td>Année 1</td><td>Île-de-France, Auvergne-Rhône-Alpes, Hauts-de-France, Grand Ouest, Nouvelle-Aquitaine, Grand Est</td><td class="n">48</td><td class="n">24</td><td class="n">6 à 18, cible 12</td></tr>
+        <tr><td>Année 2</td><td>Les six premières, plus Occitanie, Provence-Alpes-Côte d'Azur, Normandie</td><td class="n">72</td><td class="n">36</td><td class="n">9 à 27, cible 18</td></tr>
+        <tr><td>Année 3</td><td>Les neuf précédentes, plus Bourgogne-Franche-Comté, Centre-Val de Loire, La Réunion</td><td class="n">96</td><td class="n">48</td><td class="n">12 à 36, cible 24</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="stack">
+    <h2>Le plan des 200 premiers jours</h2>
+    <div class="tl">
+      <div><b>Jours 1 à 30.</b> Cadrage juridique, contrat type, grille tarifaire validée avec le cabinet.</div>
+      <div><b>Jours 30 à 60.</b> Flyer, cas chiffré, base de contacts, recrutement du chef de plateau.</div>
+      <div><b>Jours 60 à 90.</b> Envoi du flyer, outils en production, premiers rendez-vous réseau.</div>
+      <div><b>Jours 90 à 150.</b> Roadshow dans trois régions, premiers audits flash, première mission signée.</div>
+      <div><b>Jours 150 à 200.</b> Trois régions suivantes, cinq missions en cours, premier bilan de coup de poing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="view" id="v-budget">
+  <div class="stack hero">
+    <span class="eyebrow">Budget sur trois ans</span>
+    <h1>Budget estimé et effectifs</h1>
+    <p class="lead">Modèle mensuel sur 36 mois, construit sur les formules et les hypothèses ci-dessous. Bougez les trois curseurs pour tester un scénario.</p>
+  <div class="art"><svg viewBox="0 0 340 240" role="img" aria-label="Illustration : des barres de chiffre d'affaires en croissance">
+<g stroke="#3b74ff" stroke-opacity=".25"><line x1="24" y1="60" x2="316" y2="60"/><line x1="24" y1="108" x2="316" y2="108"/><line x1="24" y1="156" x2="316" y2="156"/></g>
+<line x1="24" y1="204" x2="316" y2="204" stroke="#3b74ff" stroke-opacity=".6"/>
+<g>
+<rect x="38" y="184" width="30" height="20" rx="4" fill="#3b74ff"/><rect x="38" y="170" width="30" height="12" rx="4" fill="#5ad1ff"/>
+<rect x="84" y="158" width="30" height="46" rx="4" fill="#3b74ff"/><rect x="84" y="128" width="30" height="28" rx="4" fill="#5ad1ff"/>
+<rect x="130" y="138" width="30" height="66" rx="4" fill="#3b74ff"/><rect x="130" y="98" width="30" height="38" rx="4" fill="#5ad1ff"/>
+<rect x="176" y="120" width="30" height="84" rx="4" fill="#3b74ff"/><rect x="176" y="70" width="30" height="48" rx="4" fill="#5ad1ff"/>
+<rect x="222" y="98" width="30" height="106" rx="4" fill="#3b74ff"/><rect x="222" y="42" width="30" height="54" rx="4" fill="#5ad1ff"/>
+</g>
+<path d="M53 160 C110 130 150 96 200 60 S270 26 296 22" fill="none" stroke="#eaf0ff" stroke-width="2" stroke-linecap="round"/>
+<circle cx="296" cy="22" r="16" fill="url(#gG)" class="pulse"/><circle cx="296" cy="22" r="5" fill="#eaf0ff"/>
+<g font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" font-size="10"><rect x="262" y="150" width="10" height="10" rx="2" fill="#5ad1ff" stroke="none"/><text x="278" y="159">Variable</text><rect x="262" y="168" width="10" height="10" rx="2" fill="#3b74ff"/><text x="278" y="177">Fixe</text></g>
+<text x="53" y="222" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" fill="#93a3c4" font-weight="500">An 1</text><text x="237" y="222" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="#eaf0ff" fill="#93a3c4" font-weight="500">An 3</text>
+</svg></div>
+  </div>
+
+  <div class="card">
+    <div class="controls">
+      <label for="mpr">Missions signées par région
+        <output id="o-mpr"></output>
+        <input type="range" id="mpr" min="1" max="3" step="1" value="2">
+      </label>
+      <label for="rate">Prix de vente de l'heure à Maurice
+        <output id="o-rate"></output>
+        <input type="range" id="rate" min="14" max="24" step="1" value="18">
+      </label>
+      <label for="com">Commission BPO sur encaissements
+        <output id="o-com"></output>
+        <input type="range" id="com" min="1" max="5" step="0.5" value="3">
+      </label>
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="chart">
+    <h3>Chiffre d'affaires fixe et variable, par trimestre</h3>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Part fixe</span><span><i style="background:var(--amber)"></i>Part variable</span></div>
+    <div class="cw" id="ch-ca"></div>
+  </div>
+
+  <div class="chart">
+    <h3>Effectifs budgétés en fin de trimestre (ETP)</h3>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Conseillers Maurice</span><span><i style="background:var(--slate)"></i>Encadrement et data Maurice</span><span><i style="background:var(--amber)"></i>France</span></div>
+    <div class="cw" id="ch-eff"></div>
+  </div>
+
+  <div class="stack">
+    <h2>Compte de résultat prévisionnel</h2>
+    <div class="tw"><table id="pl"></table></div>
+  </div>
+
+  <div class="stack">
+    <h2>Contrats et effectifs</h2>
+    <div class="tw"><table id="vol"></table></div>
+  </div>
+
+  <div class="stack">
+    <h2>Hypothèses retenues</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Volumes</h3>
+        <ul>
+          <li>Régions couvertes : 6 en année 1, 9 en année 2, 12 en année 3.</li>
+          <li>Répartition des missions : 50 % coups de poing, 25 % BPO 1 an, 10 % BPO 3 ans, le solde en cellules liquidatives.</li>
+          <li>Année 1 : premières signatures au cinquième mois.</li>
+          <li>Un coup de poing sur deux devient un BPO 1 an.</li>
+          <li>80 % des BPO 1 an renouvelés à chaque échéance.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Coûts</h3>
+        <ul>
+          <li>Conseiller Maurice : 1 250 € par mois, coût complet, avec 10 % de marge de couverture.</li>
+          <li>Team leader : 2 500 € par mois. Analyste data : 2 000 € par mois.</li>
+          <li>France : pilote 150 k€, crédit manager 65 k€, qualité 70 k€, business developer 75 k€ par an.</li>
+          <li>Outils et télécoms : 210 € par utilisateur et par mois, plus 1 000 € de plateforme.</li>
+          <li>Marketing : 10 k€ de kit, puis 5 k€ par région visitée.</li>
+          <li>Juridique et structure : 30 k€ puis 10 k€. Produit : 40 k€ puis 30 k€.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Toutes les valeurs de coût sont des ordres de grandeur à confirmer par des devis : salaires à Maurice, licences Diabolocom, structure juridique locale. Le conseil cash et BFR n'est pas compté dans ce chiffre d'affaires.</p>
+  </div>
+</section>
+
+
+<!-- ADMIN (non listée) -->
+<section class="view" id="v-admin">
+  <div class="stack hero">
+    <span class="eyebrow">Administration</span>
+    <h1>Tarifs, temps par dossier et calcul de mission</h1>
+    <p class="lead">Saisissez les taux par profil et le temps passé par dossier. La page calcule le coût d'une mission, le chiffre d'affaires et la marge du cabinet.</p>
+    <button type="button" id="adm-open-panel" class="adm-open">Ouvrir le panneau de réglages</button>
+  </div>
+  <p class="note">Les tarifs et temps saisis ici sont enregistrés dans un espace lisible par vous seul. Les visiteurs ne voient ni cette page dans le menu, ni ces valeurs.</p>
+
+  <div class="stack">
+    <h2>Taux et temps par profil</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Profil</th><th class="n">Taux de vente (€/h)</th><th class="n">Coût interne (€/h)</th><th class="n">Minutes par dossier et par mois</th></tr></thead>
+      <tbody id="adm-prof"></tbody>
+    </table></div>
+  </div>
+
+  <div class="stack">
+    <h2>Paramètres de la mission</h2>
+    <div class="controls">
+      <label for="adm-dos">Dossiers actifs du client
+        <input type="number" id="adm-dos" min="0" step="10">
+      </label>
+      <label for="adm-enc">Encaissements annuels (€)
+        <input type="number" id="adm-enc" min="0" step="1000">
+      </label>
+      <label for="adm-com">Commission sur encaissements (%)
+        <input type="number" id="adm-com" min="0" step="0.5">
+      </label>
+    </div>
+  </div>
+
+  <div class="stack">
+    <h2>Résultat de la mission</h2>
+    <div class="tiles" id="adm-out"></div>
+    <div class="tw"><table id="adm-det"></table></div>
+  </div>
+
+  <div class="stack">
+    <h2>Indicateurs de la page solution</h2>
+    <div class="controls">
+      <label for="k-cl">Clients accompagnés depuis le lancement<input type="number" id="k-cl" min="0"></label>
+      <label for="k-en">Encaissements cumulés (€)<input type="number" id="k-en" min="0"></label>
+      <label for="k-da">DSO moyen au lancement (jours)<input type="number" id="k-da" min="0"></label>
+      <label for="k-dp">DSO moyen après 2 ans (jours)<input type="number" id="k-dp" min="0"></label>
+      <label for="k-tr">Taux de recouvrement (%)<input type="number" id="k-tr" min="0" max="100" step="0.1"></label>
+    </div>
+  </div>
+
+  <div class="stack">
+    <h2>Exporter la configuration</h2>
+    <p class="note">Ce bloc reprend tous les réglages et textes modifiés. Il sert de sauvegarde, et à figer la version vue par les visiteurs non connectés.</p>
+    <textarea id="adm-json" rows="8" readonly style="width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;font-family:monospace;font-size:.85rem"></textarea>
+    <div><button type="button" id="adm-reset" style="font:600 .9rem var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer">Revenir aux valeurs par défaut</button></div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="foot">
+    <div><h4>Cash &amp; Recouvrement</h4><p style="font-size:.85rem">Recouvrement externalisé, crédit management et conseil BFR. Exécution à l'île Maurice, pilotage en France.</p></div>
+    <div><h4>La solution</h4><a href="#solution">Présentation</a><a href="#organisation">Organisation</a><a href="#outils">Outils</a></div>
+    <div><h4>Offres</h4><a href="#offres">Coup de poing</a><a href="#offres">BPO 1 an et 3 ans</a><a href="#offres">Cellule liquidative</a></div>
+    <div><h4>Informations</h4><a href="#demarche">Démarche commerciale</a><a href="#budget">Budget</a><span style="display:block;font-size:.82rem;padding:2px 0">Mentions légales : à rédiger</span></div>
+  </div>
+  <p style="margin-top:16px">Document de travail. Les chiffres de budget sont des hypothèses de construction, pas des engagements.</p>
+</footer>
+
+<button type="button" id="fx-btn" class="fx-btn" aria-controls="fx-panel" aria-expanded="false" hidden>
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h3M13 17h7"/><circle cx="16" cy="7" r="2.5"/><circle cx="10" cy="17" r="2.5"/></svg>
+  Réglages
+</button>
+<aside id="fx-panel" class="fx-panel" aria-label="Réglages du site" aria-hidden="true">
+  <div class="fx-head"><div><span class="eyebrow">Administration</span><h2>Réglages</h2></div><button type="button" id="fx-close" class="fx-x" aria-label="Fermer les réglages">×</button></div>
+  <section class="fx-sec">
+    <h3>Accueil · indicateurs et contact</h3>
+    <p class="fx-hint">Indicateurs de la page d'accueil. Champ vide : la case affiche « à renseigner ».</p>
+    <label class="fx-field" for="p-cl">Clients accompagnés depuis le lancement<input type="number" id="p-cl" data-kpi="cl" min="0"></label>
+    <label class="fx-field" for="p-en">Encaissements cumulés (€)<input type="number" id="p-en" data-kpi="en" min="0"></label>
+    <label class="fx-field" for="p-da">DSO moyen au lancement (jours)<input type="number" id="p-da" data-kpi="da" min="0"></label>
+    <label class="fx-field" for="p-dp">DSO moyen après 2 ans (jours)<input type="number" id="p-dp" data-kpi="dp" min="0"></label>
+    <label class="fx-field" for="p-tr">Taux de recouvrement (%)<input type="number" id="p-tr" data-kpi="tr" min="0" max="100" step="0.1"></label>
+    <h3 style="margin-top:6px">Coordonnées de contact</h3>
+    <label class="fx-field" for="p-mail">Adresse e-mail<input type="email" id="p-mail" data-contact="mail" autocomplete="off"></label>
+    <label class="fx-field" for="p-tel">Téléphone<input type="tel" id="p-tel" data-contact="tel" autocomplete="off"></label>
+    <label class="fx-field" for="p-rdv">Lien de prise de rendez-vous (https://…)<input type="url" id="p-rdv" data-contact="rdv" autocomplete="off"></label>
+    <div class="fx-links">
+      <a href="#admin">Tarifs et temps par profil</a>
+      <a href="#budget">Curseurs du budget</a>
+      <a href="#admin">Exporter la configuration</a>
+    </div>
+  </section>
+  <section class="fx-sec">
+    <h3>Accueil · simulateur</h3>
+    <p class="fx-hint">Valeurs affichées à l'ouverture du simulateur.</p>
+    <div class="fx-grid">
+      <label class="fx-field" for="pp-sim-ca">Chiffre d'affaires (M€)<input type="number" id="pp-sim-ca" data-p="sim.ca" min="5" max="500" step="5"></label>
+      <label class="fx-field" for="pp-sim-tx">Financement (%)<input type="number" id="pp-sim-tx" data-p="sim.tx" min="1" max="10" step="0.5"></label>
+      <label class="fx-field" for="pp-sim-d0">DSO actuel (j)<input type="number" id="pp-sim-d0" data-p="sim.d0" min="20" max="150"></label>
+      <label class="fx-field" for="pp-sim-d1">DSO visé (j)<input type="number" id="pp-sim-d1" data-p="sim.d1" min="15" max="120"></label>
+    </div>
+  </section>
+  <section class="fx-sec">
+    <h3>Accueil · chargé ou BPO</h3>
+    <p class="fx-hint">Hypothèses de la comparaison des coûts. Le titre et le tableau se recalculent.</p>
+    <div class="fx-grid">
+      <label class="fx-field" for="pp-cmp-ca">Chiffre d'affaires (M€)<input type="number" id="pp-cmp-ca" data-p="cmp.ca" min="1" step="1"></label>
+      <label class="fx-field" for="pp-cmp-dso">DSO (jours)<input type="number" id="pp-cmp-dso" data-p="cmp.dso" min="1"></label>
+      <label class="fx-field" for="pp-cmp-ret">Créances en retard (%)<input type="number" id="pp-cmp-ret" data-p="cmp.ret" min="0" max="100"></label>
+      <label class="fx-field" for="pp-cmp-rec">Retards recouvrés (%)<input type="number" id="pp-cmp-rec" data-p="cmp.rec" min="0" max="100"></label>
+      <label class="fx-field" for="pp-cmp-sal">Salaire brut (€/an)<input type="number" id="pp-cmp-sal" data-p="cmp.sal" min="0" step="1000"></label>
+      <label class="fx-field" for="pp-cmp-ch">Charges (%)<input type="number" id="pp-cmp-ch" data-p="cmp.ch" min="0" max="100"></label>
+      <label class="fx-field" for="pp-cmp-out">Outils (€/an)<input type="number" id="pp-cmp-out" data-p="cmp.out" min="0" step="100"></label>
+      <label class="fx-field" for="pp-cmp-rem">Remplacement (%)<input type="number" id="pp-cmp-rem" data-p="cmp.rem" min="0" max="100"></label>
+      <label class="fx-field" for="pp-cmp-fix">Fixe BPO (€/an)<input type="number" id="pp-cmp-fix" data-p="cmp.fix" min="0" step="1000"></label>
+      <label class="fx-field" for="pp-cmp-tx">Variable BPO (%)<input type="number" id="pp-cmp-tx" data-p="cmp.tx" min="0" step="0.5"></label>
+    </div>
+  </section>
+  <section class="fx-sec">
+    <h3>Budget · valeurs de départ</h3>
+    <p class="fx-hint">Position des curseurs à l'ouverture de la page Budget et coût d'un conseiller.</p>
+    <div class="fx-grid">
+      <label class="fx-field" for="pp-bud-mpr">Missions par région<input type="number" id="pp-bud-mpr" data-p="bud.mpr" min="1" max="3" step="1"></label>
+      <label class="fx-field" for="pp-bud-rate">Prix de l'heure (€)<input type="number" id="pp-bud-rate" data-p="bud.rate" min="14" max="24" step="1"></label>
+      <label class="fx-field" for="pp-bud-com">Commission BPO (%)<input type="number" id="pp-bud-com" data-p="bud.com" min="1" max="5" step="0.5"></label>
+      <label class="fx-field" for="pp-bud-agent">Coût conseiller (€/mois)<input type="number" id="pp-bud-agent" data-p="bud.agent" min="0" step="50"></label>
+    </div>
+  </section>
+  <section class="fx-sec">
+    <h3>Animations</h3>
+    <div class="seg" role="group" aria-label="Niveau d'animation">
+      <button type="button" data-preset="aucune">Aucune</button><button type="button" data-preset="sobre">Sobre</button><button type="button" data-preset="standard">Standard</button><button type="button" data-preset="riche">Riche</button>
+    </div>
+    <label class="fx-row" for="fx-hero"><span>Animation de la page d'accueil</span><input type="checkbox" class="sw" id="fx-hero" data-fx="hero"></label>
+    <label class="fx-row" for="fx-ambient"><span>Fond lumineux animé</span><input type="checkbox" class="sw" id="fx-ambient" data-fx="ambient"></label>
+    <label class="fx-row" for="fx-illus"><span>Illustrations animées des pages</span><input type="checkbox" class="sw" id="fx-illus" data-fx="illus"></label>
+    <label class="fx-row" for="fx-counters"><span>Compteurs animés</span><input type="checkbox" class="sw" id="fx-counters" data-fx="counters"></label>
+    <label class="fx-row" for="fx-hover"><span>Effets au survol des cartes</span><input type="checkbox" class="sw" id="fx-hover" data-fx="hover"></label>
+    <label class="fx-row" for="fx-sheen"><span>Reflet sur les bandeaux</span><input type="checkbox" class="sw" id="fx-sheen" data-fx="sheen"></label>
+    <label class="fx-row" for="fx-trans"><span>Transition entre pages</span><select id="fx-trans" data-fx="trans"><option value="rise">Glissement</option><option value="fade">Fondu</option><option value="none">Aucune</option></select></label>
+    <label class="fx-field" for="fx-speed">Vitesse <output id="fx-speed-o"></output><input type="range" id="fx-speed" data-fx="speed" min="0.5" max="2" step="0.1"></label>
+    <p class="fx-hint">Si l'appareil du visiteur demande moins d'animations, le site les coupe, quels que soient ces réglages.</p>
+    <button type="button" id="fx-reset" class="fx-ghost">Revenir aux réglages par défaut</button>
+  </section>
+  <section class="fx-sec">
+    <h3>Visibilité</h3>
+    <p class="fx-hint">Connecté avec votre compte propriétaire, chaque réglage est enregistré en ligne et visible des visiteurs connectés. Les visiteurs non connectés voient la version figée dans la page.</p>
+    <button type="button" id="fx-hide" class="fx-ghost">Masquer le bouton dans ce navigateur</button>
+  </section>
+</aside>
+
+<script>
+window.RPdefs={
+  sim:{ca:25,d0:65,d1:50,tx:5},
+  cmp:{ca:25,dso:60,ret:20,rec:60,sal:42000,ch:45,out:2400,rem:10,fix:48000,tx:3},
+  bud:{mpr:2,rate:18,com:3,agent:1250}
+};
+window.RPstore=(function(){
+  var BAKED={"bud": {"agent": 1250, "com": 3, "mpr": 10, "rate": 22}, "fx": {"ambient": true, "counters": true, "hero": true, "hover": true, "illus": true, "preset": "riche", "sheen": true, "speed": 1.4, "trans": "rise"}, "kpi": {"cl": null, "da": null, "dp": null, "en": null, "tr": null}, "__public": true}; /*RP-BAKED*/
+  var st={},k;
+  for(k in BAKED)st[k]=JSON.parse(JSON.stringify(BAKED[k]));
+  var L={};
+  try{L=JSON.parse(localStorage.getItem('rp-store')||'{}')||{};}catch(e){L={};}
+  try{[['fx','rp-fx'],['admin','rp-admin'],['contact','rp-contact']].forEach(function(p){if(!L[p[0]]){var s=localStorage.getItem(p[1]);if(s)L[p[0]]=JSON.parse(s);}});}catch(e){}
+  if(L.admin&&L.admin.kpi&&!L.kpi)L.kpi=L.admin.kpi;
+  for(k in L)st[k]=L[k];
+  var db=null,owner=false,ready=false;
+  var DOCS=['site/params','site/texts','private/admin'];
+  function docFor(key){return key==='texts'?'site/texts':(key==='admin'?'private/admin':'site/params');}
+  function emit(keys){window.dispatchEvent(new CustomEvent('rp-store',{detail:{keys:keys}}));}
+  function status(s,e){api.state=s;window.dispatchEvent(new CustomEvent('rp-save',{detail:{s:s,e:e}}));}
+  function body(path){var o={};for(var key in st){if(docFor(key)===path&&st[key]!==undefined)o[key]=st[key];}return o;}
+  var pend={},busy={},timers={};
+  function flush(path){
+    if(busy[path]||!pend[path])return;
+    var b=pend[path];pend[path]=null;busy[path]=true;status('saving');
+    db.doc(path).set(b).then(function(){busy[path]=false;if(pend[path])flush(path);else status('saved');},
+      function(e){busy[path]=false;status('error',e);});
+  }
+  function queue(path){clearTimeout(timers[path]);status('dirty');timers[path]=setTimeout(function(){pend[path]=body(path);flush(path);},700);}
+  function set(key,v,loud){
+    st[key]=(v==null)?null:JSON.parse(JSON.stringify(v));
+    if(db&&owner){queue(docFor(key));}
+    else{L[key]=st[key];try{localStorage.setItem('rp-store',JSON.stringify(L));}catch(e){}status('local');}
+    if(loud)emit([key]);
+  }
+  var api={
+    state:'idle',
+    get:function(key){return st[key];},
+    set:set,
+    all:function(){return JSON.parse(JSON.stringify(st));},
+    isOwner:function(){return owner;},
+    online:function(){return !!db;},
+    ready:function(){return ready;}
+  };
+  function init(){
+    if(!window.claude||typeof window.claude.use!=='function'){ready=true;return;}
+    Promise.all([window.claude.use('user'),window.claude.use('db')]).then(function(r){
+      var u=r[0];db=r[1];
+      try{owner=!!(u&&u.isOwner&&u.isOwner());}catch(e){owner=false;}
+      ready=true;
+      window.dispatchEvent(new CustomEvent('rp-role',{detail:{owner:owner,db:!!db}}));
+      if(!db)return;
+      DOCS.forEach(function(path){
+        if(path==='private/admin'&&!owner)return;
+        var first=true;
+        db.doc(path).onSnapshot(function(snap){
+          if(snap.metadata&&snap.metadata.hasPendingWrites)return;
+          var d=snap.exists?snap.data():null;
+          if(!d){
+            if(first&&owner&&!(snap.metadata&&snap.metadata.fromCache)){
+              var has=false;for(var key in L){if(docFor(key)===path){st[key]=L[key];has=true;}}
+              if(has){pend[path]=body(path);flush(path);}
+            }
+            first=false;return;
+          }
+          first=false;
+          var keys=[];
+          for(var key2 in d){if(JSON.stringify(st[key2])!==JSON.stringify(d[key2])){st[key2]=JSON.parse(JSON.stringify(d[key2]));keys.push(key2);}}
+          if(keys.length)emit(keys);
+        },function(e){status('error',e);});
+      });
+    },function(){});
+  }
+  init();
+  return api;
+})();
+</script>
+<script>
+/* ---------- Modèle ---------- */
+function runModel(p){
+  var M=36, H=139, REG=[6,9,12];
+  var fix=new Array(M).fill(0), vr=new Array(M).fill(0), etp=new Array(M).fill(0);
+  var signed=[{CP:0,B1:0,B3:0,CL:0},{CP:0,B1:0,B3:0,CL:0},{CP:0,B1:0,B3:0,CL:0}];
+  var conv=[0,0,0], activeBpo=[0,0,0];
+  function add(start,dur,w,e,fTot,vTot){
+    for(var m=start;m<start+dur&&m<M;m++){fix[m]+=w*fTot/dur;vr[m]+=w*vTot/dur;etp[m]+=w*e;}
+  }
+  function bpo1(start,w){
+    var k=0;
+    for(var s=start;s<M;s+=12){
+      var ww=w*Math.pow(0.8,k++);
+      add(s,12,ww,1.6,1.6*H*12*p.rate,p.com*1200000);
+    }
+  }
+  for(var y=0;y<3;y++){
+    var N=REG[y]*p.mpr;
+    var c={CP:Math.round(N*0.5),B1:Math.round(N*0.25),B3:Math.round(N*0.1)};
+    c.CL=Math.max(0,N-c.CP-c.B1-c.B3);
+    signed[y]=c;
+    var w0=y===0?4:y*12, wl=y===0?8:12;
+    var st=function(i,n){return w0+Math.floor((i+0.5)*wl/n);};
+    var i,s;
+    for(i=0;i<c.CP;i++){s=st(i,c.CP);add(s,5,1,2,2*H*5*p.rate,0.06*450000);
+      if(s+5<M){bpo1(s+5,0.5);conv[Math.floor((s+5)/12)]+=0.5;}}
+    for(i=0;i<c.B1;i++){bpo1(st(i,c.B1),1);}
+    for(i=0;i<c.B3;i++){add(st(i,c.B3),36,1,1.5,1.5*H*36*p.rate,(p.com-0.005)*1200000*3);}
+    for(i=0;i<c.CL;i++){add(st(i,c.CL),8,1,1.5,1.5*H*8*p.rate,0.08*500000);}
+  }
+  var FR=[1.7,2.5,5], FRC=[150000+0.5*65000+0.2*70000,150000+65000+0.5*70000,150000+2*65000+70000+75000];
+  var MKT=[40000,50000,65000], LEG=[30000,10000,10000], PRD=[40000,30000,30000];
+  var ag=[],ld=[],an=[];
+  for(var m=0;m<M;m++){
+    ag[m]=Math.ceil(etp[m]*1.1-1e-9);
+    ld[m]=m<3?0:Math.max(1,Math.ceil(ag[m]/8));
+    an[m]=m<4?0:(m<12?0.5:1);
+  }
+  var years=[];
+  for(y=0;y<3;y++){
+    var o={fix:0,vr:0,mu:0,tools:0};
+    for(m=y*12;m<y*12+12;m++){
+      o.fix+=fix[m];o.vr+=vr[m];
+      o.mu+=ag[m]*p.agentCost+ld[m]*2500+an[m]*2000;
+      o.tools+=(ag[m]+ld[m]+an[m]+FR[y])*210+1000;
+    }
+    o.ca=o.fix+o.vr;o.fr=FRC[y];o.mkt=MKT[y];o.leg=LEG[y];o.prd=PRD[y];
+    o.cost=o.mu+o.fr+o.tools+o.mkt+o.leg+o.prd;o.res=o.ca-o.cost;
+    var d=y*12+11;
+    o.ag=ag[d];o.enc=ld[d]+an[d];o.frh=FR[y];o.signed=signed[y];o.conv=conv[y];
+    years.push(o);
+  }
+  var q=[];
+  for(var k=0;k<12;k++){
+    var a=0,b=0;for(m=k*3;m<k*3+3;m++){a+=fix[m];b+=vr[m];}
+    var e=k*3+2;
+    q.push({fix:a,vr:b,ag:ag[e],enc:ld[e]+an[e],fr:FR[Math.floor(k/4)]});
+  }
+  return {years:years,q:q};
+}
+
+/* ---------- Affichage ---------- */
+if(typeof document!=='undefined'){(function(){
+  var VIEWS=['solution','organisation','outils','offres','demarche','budget','admin'];
+  function route(){
+    var h=(location.hash||'').replace('#','');
+    if(VIEWS.indexOf(h)<0||(h==='admin'&&window.RPstore&&window.RPstore.get('__public')))h='solution';
+    VIEWS.forEach(function(v){
+      document.getElementById('v-'+v).classList.toggle('on',v===h);
+    });
+    document.querySelectorAll('nav a').forEach(function(a){
+      if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route);route();
+
+  var nf0=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+  var nf1=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1});
+  function k(v){return nf0.format(Math.round(v/1000))+' k€';}
+
+  function bars(id,series,unit){
+    var W=720,Ht=300,L=48,R=10,T=22,B=44,n=series[0].v.length;
+    var tot=[],max=0,i,j;
+    for(i=0;i<n;i++){tot[i]=0;for(j=0;j<series.length;j++)tot[i]+=series[j].v[i];if(tot[i]>max)max=tot[i];}
+    var mag=Math.pow(10,Math.floor(Math.log10(max||1))), step=mag;
+    [0.2,0.5,1,2,5].some(function(f){step=f*mag;return max/step<=5;});
+    var top=Math.ceil(max/step)*step||step, ph=Ht-T-B, bw=(W-L-R)/n;
+    function yy(v){return T+ph-(v/top)*ph;}
+    var s='<svg viewBox="0 0 '+W+' '+Ht+'" role="img" aria-label="Graphique en barres empilées">';
+    for(var g=0;g<=top+1e-9;g+=step){
+      s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy(g)+'" y2="'+yy(g)+'" stroke="var(--line)" stroke-width="1"/>';
+      s+='<text x="'+(L-6)+'" y="'+(yy(g)+4)+'" text-anchor="end" font-size="11" fill="var(--muted)">'+unit(g)+'</text>';
+    }
+    for(i=0;i<n;i++){
+      var x=L+i*bw+bw*0.16,w=bw*0.68,acc=0;
+      for(j=0;j<series.length;j++){
+        var v=series[j].v[i];if(v<=0)continue;
+        var y1=yy(acc+v),h=yy(acc)-y1;
+        s+='<rect x="'+x+'" y="'+y1+'" width="'+w+'" height="'+Math.max(h-1.5,0.5)+'" rx="2" fill="'+series[j].c+'"><title>'+series[j].n+' : '+unit(v)+'</title></rect>';
+        acc+=v;
+      }
+      if(tot[i]>0)s+='<text x="'+(x+w/2)+'" y="'+(yy(tot[i])-5)+'" text-anchor="middle" font-size="11" font-weight="600" fill="#eaf0ff">'+unit(tot[i])+'</text>';
+      s+='<text x="'+(x+w/2)+'" y="'+(Ht-B+15)+'" text-anchor="middle" font-size="11" fill="var(--muted)">T'+(i%4+1)+'</text>';
+      if(i%4===0)s+='<text x="'+(L+i*bw+bw*2)+'" y="'+(Ht-8)+'" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Année '+(i/4+1)+'</text>';
+      if(i%4===0&&i>0)s+='<line x1="'+(L+i*bw)+'" x2="'+(L+i*bw)+'" y1="'+T+'" y2="'+(Ht-4)+'" stroke="var(--line)" stroke-dasharray="3 3"/>';
+    }
+    document.getElementById(id).innerHTML=s+'</svg>';
+  }
+
+  function row(label,vals,fmt,cls){
+    return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+label+'</td>'+vals.map(function(v){return '<td class="n">'+fmt(v)+'</td>';}).join('')+'</tr>';
+  }
+  function render(){
+    var p={mpr:+document.getElementById('mpr').value,rate:+document.getElementById('rate').value,com:+document.getElementById('com').value/100,agentCost:((window.RPstore&&window.RPstore.get('bud')&&window.RPstore.get('bud').agent)||1250)};
+    document.getElementById('o-mpr').textContent=p.mpr+(p.mpr>1?' missions':' mission');
+    document.getElementById('o-rate').textContent=p.rate+' € de l\'heure';
+    document.getElementById('o-com').textContent=nf1.format(p.com*100)+' %';
+    var r=runModel(p),Y=r.years;
+    var t='';
+    Y.forEach(function(o,i){
+      t+='<div class="tile"><div class="l">CA année '+(i+1)+'</div><div class="v">'+k(o.ca)+'</div><div class="l">dont fixe '+k(o.fix)+'</div></div>';
+    });
+    Y.forEach(function(o,i){
+      t+='<div class="tile"><div class="l">Résultat année '+(i+1)+'</div><div class="v'+(o.res<0?' neg':'')+'">'+k(o.res)+'</div><div class="l">'+nf0.format(o.res/o.ca*100)+' % du CA</div></div>';
+    });
+    document.getElementById('tiles').innerHTML=t;
+    bars('ch-ca',[{n:'Part fixe',c:'var(--accent)',v:r.q.map(function(x){return x.fix;})},{n:'Part variable',c:'var(--amber)',v:r.q.map(function(x){return x.vr;})}],function(v){return nf0.format(Math.round(v/1000))+' k€';});
+    bars('ch-eff',[{n:'Conseillers Maurice',c:'var(--accent)',v:r.q.map(function(x){return x.ag;})},{n:'Encadrement et data Maurice',c:'var(--slate)',v:r.q.map(function(x){return x.enc;})},{n:'France',c:'var(--amber)',v:r.q.map(function(x){return x.fr;})}],function(v){return nf1.format(v);});
+    var g=function(f){return Y.map(f);};
+    document.getElementById('pl').innerHTML='<thead><tr><th>En k€</th><th class="n">Année 1</th><th class="n">Année 2</th><th class="n">Année 3</th></tr></thead><tbody>'
+      +row('CA part fixe',g(function(o){return o.fix;}),k)
+      +row('CA part variable',g(function(o){return o.vr;}),k)
+      +row('Chiffre d\'affaires',g(function(o){return o.ca;}),k,'tot')
+      +row('Équipes Maurice',g(function(o){return o.mu;}),k,'sub')
+      +row('Équipe France',g(function(o){return o.fr;}),k,'sub')
+      +row('Outils et télécoms',g(function(o){return o.tools;}),k,'sub')
+      +row('Marketing et roadshow',g(function(o){return o.mkt;}),k,'sub')
+      +row('Juridique et structure',g(function(o){return o.leg;}),k,'sub')
+      +row('Développement produit',g(function(o){return o.prd;}),k,'sub')
+      +row('Total des coûts',g(function(o){return o.cost;}),k)
+      +row('Résultat d\'exploitation',g(function(o){return o.res;}),k,'tot')
+      +row('Marge',g(function(o){return o.res/o.ca;}),function(v){return nf0.format(v*100)+' %';})
+      +'</tbody>';
+    document.getElementById('vol').innerHTML='<thead><tr><th></th><th class="n">Année 1</th><th class="n">Année 2</th><th class="n">Année 3</th></tr></thead><tbody>'
+      +row('Coups de poing signés',g(function(o){return o.signed.CP;}),nf0.format)
+      +row('BPO 1 an signés',g(function(o){return o.signed.B1;}),nf0.format)
+      +row('BPO 3 ans signés',g(function(o){return o.signed.B3;}),nf0.format)
+      +row('Cellules liquidatives signées',g(function(o){return o.signed.CL;}),nf0.format)
+      +row('Nouvelles missions',g(function(o){return o.signed.CP+o.signed.B1+o.signed.B3+o.signed.CL;}),nf0.format,'tot')
+      +row('Coups de poing transformés en BPO',g(function(o){return o.conv;}),nf1.format)
+      +row('Conseillers Maurice, fin d\'année',g(function(o){return o.ag;}),nf0.format,'sub')
+      +row('Encadrement et data Maurice',g(function(o){return o.enc;}),nf1.format,'sub')
+      +row('Équipe France (ETP)',g(function(o){return o.frh;}),nf1.format,'sub')
+      +row('Effectif total (ETP)',g(function(o){return o.ag+o.enc+o.frh;}),nf1.format,'tot')
+      +'</tbody>';
+  }
+  ['mpr','rate','com'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+  function budDefaults(){var d={},a=window.RPdefs.bud,s=window.RPstore.get('bud')||{},q;for(q in a)d[q]=a[q];for(q in s)if(s[q]!=null)d[q]=s[q];
+    document.getElementById('mpr').value=d.mpr;document.getElementById('rate').value=d.rate;document.getElementById('com').value=d.com;render();}
+  budDefaults();
+  window.addEventListener('rp-store',function(e){if(e.detail.keys.indexOf('bud')>=0)budDefaults();});
+  render();
+})();}
+if(typeof module!=='undefined')module.exports=runModel;
+</script>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var DEF_FX={preset:'standard',ambient:true,trans:'rise',hero:true,illus:true,counters:true,hover:true,sheen:true,speed:1};
+  var PRESETS={
+    aucune:{ambient:false,trans:'none',hero:false,illus:false,counters:false,hover:false,sheen:false,speed:1},
+    sobre:{ambient:false,trans:'fade',hero:true,illus:false,counters:true,hover:true,sheen:false,speed:0.8},
+    standard:{ambient:true,trans:'rise',hero:true,illus:true,counters:true,hover:true,sheen:true,speed:1},
+    riche:{ambient:true,trans:'rise',hero:true,illus:true,counters:true,hover:true,sheen:true,speed:1.4}
+  };
+  var fx={},k;
+  for(k in DEF_FX)fx[k]=DEF_FX[k];
+  var o0=window.RPstore.get('fx');if(o0){for(k in o0)fx[k]=o0[k];}
+  var RM=window.matchMedia?matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
+  window.RPfx={get:function(){return fx;}};
+  function save(){window.RPstore.set('fx',fx);if(window.RPadmin)window.RPadmin.redraw();}
+
+  /* ---------- Animation de la page d'accueil ---------- */
+  var hero=(function(){
+    var cv=document.getElementById('hero-cv');
+    if(!cv||!cv.getContext)return {refresh:function(){}};
+    var ctx=cv.getContext('2d'),W=0,H=0,cards=[],hub=null,sink=null,parts=[],raf=0,last=0,acc=0,fill=0.35,flash=0,ang=0,rip=0;
+    var AGES=['J+30','J+45','J+60','J+75','J+90','J+120'];
+    function size(){
+      var r=cv.getBoundingClientRect();if(r.width<10)return false;
+      var d=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;
+      cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);
+      cards=AGES.map(function(a,i){return {x:W*0.14,y:H*(0.1+i*0.66/(AGES.length-1)),a:a};});
+      var m=Math.min(W,H);
+      hub={x:W*0.5,y:H*0.43,r:m*0.1};sink={x:W*0.84,y:H*0.43,r:m*0.14};
+      return true;
+    }
+    function q(p0,c,p1,t){var u=1-t;return {x:u*u*p0.x+2*u*t*c.x+t*t*p1.x,y:u*u*p0.y+2*u*t*c.y+t*t*p1.y};}
+    function c1(c){return {x:(c.x+hub.x)/2+W*0.04,y:c.y};}
+    function c2(s){return {x:(hub.x+sink.x)/2,y:hub.y+s*H*0.22};}
+    function spawn(t,st){parts.push({c:Math.floor(Math.random()*cards.length),st:st||0,t:t||0,v:0.45+Math.random()*0.3,s:Math.random()<0.5?1:-1});}
+    function pos(p){var c=cards[p.c];return p.st===0?q({x:c.x+29,y:c.y},c1(c),hub,p.t):q(hub,c2(p.s),sink,p.t);}
+    function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='rgba(90,209,255,.09)';
+      for(var gx=11;gx<W;gx+=22)for(var gy=11;gy<H;gy+=22)ctx.fillRect(gx,gy,1.3,1.3);
+      ctx.lineWidth=1;ctx.strokeStyle='rgba(90,209,255,.16)';
+      cards.forEach(function(c){var kk=c1(c);ctx.beginPath();ctx.moveTo(c.x+29,c.y);ctx.quadraticCurveTo(kk.x,kk.y,hub.x,hub.y);ctx.stroke();});
+      [1,-1].forEach(function(s){var kk=c2(s);ctx.beginPath();ctx.moveTo(hub.x,hub.y);ctx.quadraticCurveTo(kk.x,kk.y,sink.x,sink.y);ctx.stroke();});
+      ctx.font='700 10px Manrope, sans-serif';ctx.textBaseline='middle';
+      cards.forEach(function(c){
+        var w=58,h=22;rr(c.x-w/2,c.y-h/2,w,h,6);ctx.fillStyle='#0e1a38';ctx.fill();ctx.strokeStyle='rgba(59,116,255,.7)';ctx.stroke();
+        ctx.fillStyle='rgba(147,163,196,.6)';ctx.fillRect(c.x-w/2+7,c.y-4,10,2);ctx.fillRect(c.x-w/2+7,c.y+1,7,2);
+        ctx.fillStyle='#c3cfea';ctx.textAlign='right';ctx.fillText(c.a,c.x+w/2-6,c.y+0.5);
+      });
+      for(var i=0;i<3;i++){var ph=(rip+i/3)%1;ctx.beginPath();ctx.arc(hub.x,hub.y,hub.r*(1+ph*1.3),0,Math.PI*2);ctx.strokeStyle='rgba(90,209,255,'+(0.35*(1-ph)).toFixed(3)+')';ctx.stroke();}
+      var g=ctx.createRadialGradient(hub.x,hub.y,0,hub.x,hub.y,hub.r);g.addColorStop(0,'#2f5dff');g.addColorStop(1,'#0b1630');
+      ctx.beginPath();ctx.arc(hub.x,hub.y,hub.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#5ad1ff';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.save();ctx.translate(hub.x,hub.y);ctx.rotate(ang);ctx.setLineDash([3,7]);ctx.beginPath();ctx.arc(0,0,hub.r*1.28,0,Math.PI*2);ctx.strokeStyle='rgba(169,179,255,.65)';ctx.stroke();ctx.restore();
+      ctx.strokeStyle='#eaf0ff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(hub.x,hub.y+2,hub.r*0.42,Math.PI,0);ctx.stroke();
+      ctx.fillStyle='#eaf0ff';rr(hub.x-hub.r*0.52,hub.y,hub.r*0.22,hub.r*0.38,3);ctx.fill();rr(hub.x+hub.r*0.3,hub.y,hub.r*0.22,hub.r*0.38,3);ctx.fill();
+      ctx.lineWidth=7;ctx.beginPath();ctx.arc(sink.x,sink.y,sink.r,0,Math.PI*2);ctx.strokeStyle='rgba(59,116,255,.25)';ctx.stroke();
+      var gr=ctx.createLinearGradient(sink.x-sink.r,sink.y-sink.r,sink.x+sink.r,sink.y+sink.r);gr.addColorStop(0,'#5ad1ff');gr.addColorStop(1,'#2f5dff');
+      if(fill>0.005){ctx.beginPath();ctx.arc(sink.x,sink.y,sink.r,-Math.PI/2,-Math.PI/2+fill*Math.PI*2);ctx.strokeStyle=gr;ctx.lineCap='round';ctx.stroke();ctx.lineCap='butt';}
+      ctx.lineWidth=1;
+      if(flash>0){var fg=ctx.createRadialGradient(sink.x,sink.y,0,sink.x,sink.y,sink.r*1.9);fg.addColorStop(0,'rgba(90,209,255,'+(0.45*flash).toFixed(3)+')');fg.addColorStop(1,'rgba(90,209,255,0)');ctx.fillStyle=fg;ctx.beginPath();ctx.arc(sink.x,sink.y,sink.r*1.9,0,Math.PI*2);ctx.fill();}
+      ctx.fillStyle='#eaf0ff';ctx.textAlign='center';ctx.font='800 '+Math.round(sink.r*0.5)+'px Syne, sans-serif';ctx.fillText('€',sink.x,sink.y+1);
+      parts.forEach(function(p){var o=pos(p),col=p.st===0?'147,163,196':'90,209,255';
+        var rg=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,7);rg.addColorStop(0,'rgba('+col+',.9)');rg.addColorStop(1,'rgba('+col+',0)');
+        ctx.fillStyle=rg;ctx.beginPath();ctx.arc(o.x,o.y,7,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle=p.st===0?'#c3cfea':'#ffffff';ctx.beginPath();ctx.arc(o.x,o.y,1.8,0,Math.PI*2);ctx.fill();});
+      ctx.font='700 '+(W<420?10:11)+'px Manrope, sans-serif';ctx.fillStyle='#c3cfea';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+      ctx.fillText('Créances échues',Math.max(cards[0].x,48),H-10);ctx.fillText('Plateau de relance',hub.x,H-10);ctx.fillText('Trésorerie client',Math.min(sink.x,W-50),H-10);
+    }
+    function step(dt){
+      var sp=fx.speed||1;
+      acc+=dt*sp;while(acc>0.2){acc-=0.2;spawn();}
+      for(var i=parts.length-1;i>=0;i--){var p=parts[i];p.t+=p.v*dt*sp;
+        if(p.t>=1){if(p.st===0){p.st=1;p.t=0;}else{parts.splice(i,1);fill+=0.03;if(fill>=1){fill=0;flash=1;}}}}
+      ang+=dt*0.5*sp;rip=(rip+dt*0.35*sp)%1;flash=Math.max(0,flash-dt*1.2);
+    }
+    function vis(){var v=document.getElementById('v-solution');return !!v&&v.classList.contains('on')&&document.visibilityState!=='hidden';}
+    function loop(ts){if(!vis()){raf=0;return;}var dt=Math.min(0.05,Math.max(0,(ts-last)/1000));last=ts;step(dt);draw();raf=requestAnimationFrame(loop);}
+    function seed(){parts=[];for(var i=0;i<16;i++)spawn(Math.random(),Math.random()<0.5?0:1);}
+    function refresh(){
+      if(raf){cancelAnimationFrame(raf);raf=0;}
+      if(!vis()||!size())return;
+      if(!parts.length)seed();
+      if(fx.hero&&!RM.matches){last=performance.now();raf=requestAnimationFrame(loop);}else{fill=0.72;flash=0;draw();}
+    }
+    window.addEventListener('resize',refresh);
+    document.addEventListener('visibilitychange',refresh);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refresh);
+    return {refresh:refresh};
+  })();
+
+  function apply(){
+    ['ambient','illus','hover','sheen'].forEach(function(n){root.classList.toggle('fx-'+n,!!fx[n]);});
+    root.classList.remove('fx-trans-rise','fx-trans-fade');
+    if(fx.trans!=='none')root.classList.add('fx-trans-'+fx.trans);
+    root.style.setProperty('--fx-speed',String(fx.speed));
+    hero.refresh();
+  }
+  function enter(){
+    var v=document.querySelector('.view.on');if(!v)return;
+    v.classList.remove('enter');void v.offsetWidth;v.classList.add('enter');
+    clearTimeout(enter.t);enter.t=setTimeout(function(){v.classList.remove('enter');},2200);
+  }
+
+  /* ---------- Panneau de réglages ---------- */
+  var btn=document.getElementById('fx-btn'),panel=document.getElementById('fx-panel');
+  var shown=false;
+  try{shown=localStorage.getItem('rp-panel')==='1';}catch(e){}
+  function checkAdmin(){
+    if(window.RPstore.get('__public')){btn.hidden=true;return;}
+    if(location.hash==='#admin'){shown=true;try{localStorage.setItem('rp-panel','1');}catch(e){}}
+    btn.hidden=!shown;
+  }
+  function sync(){
+    panel.querySelectorAll('[data-fx]').forEach(function(el){var n=el.getAttribute('data-fx');if(el.type==='checkbox')el.checked=!!fx[n];else el.value=fx[n];});
+    panel.querySelectorAll('[data-preset]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-preset')===fx.preset));});
+    document.getElementById('fx-speed-o').textContent='× '+String(fx.speed).replace('.',',');
+    var K=window.RPadmin?window.RPadmin.kpi():{};
+    panel.querySelectorAll('[data-kpi]').forEach(function(el){if(document.activeElement===el)return;var v=K[el.getAttribute('data-kpi')];el.value=(v==null)?'':v;});
+  }
+  function openP(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');btn.setAttribute('aria-expanded','true');sync();document.getElementById('fx-close').focus();}
+  function closeP(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');panel.setAttribute('aria-hidden','true');btn.setAttribute('aria-expanded','false');if(!btn.hidden)btn.focus();}
+  btn.addEventListener('click',openP);
+  document.getElementById('fx-close').addEventListener('click',closeP);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeP();});
+  panel.addEventListener('input',function(e){
+    var t=e.target,n=t.getAttribute('data-fx'),kp=t.getAttribute('data-kpi');
+    if(n){fx[n]=t.type==='checkbox'?t.checked:(t.type==='range'?+t.value:t.value);fx.preset='perso';save();apply();sync();}
+    else if(kp&&window.RPadmin){window.RPadmin.setKpi(kp,t.value===''?null:+t.value);}
+  });
+  panel.addEventListener('click',function(e){
+    var b=e.target.closest('[data-preset]');
+    if(b){var pr=PRESETS[b.getAttribute('data-preset')];for(var n in pr)fx[n]=pr[n];fx.preset=b.getAttribute('data-preset');save();apply();sync();enter();return;}
+    if(e.target.closest('a[href^="#"]'))closeP();
+  });
+  document.getElementById('fx-reset').addEventListener('click',function(){for(var n in DEF_FX)fx[n]=DEF_FX[n];save();apply();sync();});
+  document.getElementById('fx-hide').addEventListener('click',function(){shown=false;try{localStorage.setItem('rp-panel','0');}catch(e){}closeP();btn.hidden=true;});
+  var ob=document.getElementById('adm-open-panel');
+  if(ob)ob.addEventListener('click',function(){shown=true;btn.hidden=false;openP();});
+
+  window.addEventListener('hashchange',function(){checkAdmin();enter();setTimeout(hero.refresh,0);});
+  window.addEventListener('rp-store',function(e){if(e.detail.keys.indexOf('fx')<0)return;var o=window.RPstore.get('fx')||{};for(var n in DEF_FX)fx[n]=(o[n]!==undefined&&o[n]!==null)?o[n]:DEF_FX[n];apply();sync();});
+  checkAdmin();apply();enter();
+})();
+
+</script>
+<script>
+(function(){
+  var DEF={
+    kpi:{cl:null,en:null,da:null,dp:null,tr:null},
+    profils:[
+      {n:'Conseiller recouvrement (Maurice)',v:18,c:0,min:25},
+      {n:'Team leader (Maurice)',v:24,c:0,min:3},
+      {n:'Analyste data (Maurice)',v:22,c:0,min:1},
+      {n:'Crédit manager (France)',v:120,c:0,min:2},
+      {n:"Pilote d'offre (France)",v:150,c:0,min:1}
+    ],
+    dossiers:300, encaisse:500000, commission:3
+  };
+  var cfg=JSON.parse(JSON.stringify(DEF));
+  var s0=window.RPstore.get('admin');if(s0&&s0.profils)cfg=JSON.parse(JSON.stringify(s0));
+  var k0=window.RPstore.get('kpi');if(k0)cfg.kpi=JSON.parse(JSON.stringify(k0));
+  function save(){var a=JSON.parse(JSON.stringify(cfg));delete a.kpi;window.RPstore.set('admin',a);window.RPstore.set('kpi',cfg.kpi);}
+  var f0=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+  var f1=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1});
+  function eur(v){return f0.format(Math.round(v))+' €';}
+  function ka(v){return f0.format(Math.round(v/1000))+' k€';}
+  var NA='<span class="note" style="border:0;padding:0">à renseigner</span>';
+
+  /* --- Indicateurs --- */
+  if(!cfg.kpi)cfg.kpi=JSON.parse(JSON.stringify(DEF.kpi));
+  var K=cfg.kpi;
+  function has(v){return v!=null&&v!=='';}
+  var KP=[
+    {l:'Clients accompagnés',g:function(){return K.cl;},fmt:function(v){return f0.format(v);}},
+    {l:'Encaissements cumulés',g:function(){return K.en;},fmt:function(v){return v>=1e6?f1.format(v/1e6)+' M€':ka(v);}},
+    {l:'DSO au lancement',g:function(){return K.da;},fmt:function(v){return f0.format(v)+' j';}},
+    {l:'DSO après 2 ans',g:function(){return K.dp;},fmt:function(v){return f0.format(v)+' j';}},
+    {l:'Jours de DSO gagnés',g:function(){return has(K.da)&&has(K.dp)?K.da-K.dp:null;},fmt:function(v){return (v>0?'−':'')+f0.format(Math.abs(v))+' j';}},
+    {l:'Taux de recouvrement',g:function(){return K.tr;},fmt:function(v){return f1.format(v)+' %';}}
+  ];
+  function drawKpi(){
+    var box=document.getElementById('kpi');
+    box.innerHTML=KP.map(function(o,i){var v=o.g();
+      return '<div class="tile kpi'+(has(v)?'':' empty')+'"><div class="v" data-i="'+i+'">'+(has(v)?o.fmt(+v):'à renseigner')+'</div><div class="l">'+o.l+'</div></div>';}).join('');
+    var fx=window.RPfx?window.RPfx.get():null;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!fx||!fx.counters||rm)return;
+    KP.forEach(function(o,i){var v=o.g();if(!has(v))return;
+      var el=box.querySelector('[data-i="'+i+'"]'),t0=null,d=1400/(fx.speed||1);
+      function st(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/d),e=1-Math.pow(1-p,3);el.textContent=o.fmt(+v*e);if(p<1)requestAnimationFrame(st);}
+      requestAnimationFrame(st);});
+  }
+  drawKpi();
+  window.addEventListener('hashchange',function(){var x=location.hash;if(x===''||x==='#'||x==='#solution')drawKpi();});
+
+  /* --- Comparaison chargé vs BPO (paramètres) --- */
+  function row(l,a,b,cls){return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+l+'</td><td class="n">'+a+'</td><td class="n">'+b+'</td></tr>';}
+  function drawCmp(){
+    var c={},d=window.RPdefs.cmp,s=window.RPstore.get('cmp')||{},q;
+    for(q in d)c[q]=d[q];for(q in s)if(s[q]!=null)c[q]=s[q];
+    var CA=c.ca*1e6,creances=CA*c.dso/365,enc=creances*c.ret/100*c.rec/100;
+    var ch=c.ch/100,rempl=c.rem/100,interne=c.sal*(1+ch)+c.out,interneTot=interne*(1+rempl),vari=c.tx/100*enc,bpo=c.fix+vari;
+    document.getElementById('cmp-title').textContent='Un chargé de recouvrement ou un BPO : quel coût pour une société de '+f1.format(c.ca)+' M€ ?';
+    document.getElementById('cmp-lead').textContent='Hypothèses : chiffre d\'affaires de '+f1.format(c.ca)+' M€, DSO de '+f0.format(c.dso)+' jours, '+f0.format(c.ret)+' % des créances en retard, '+f0.format(c.rec)+' % de ces retards recouvrés dans l\'année. Les salaires et les tarifs sont des hypothèses à confirmer.';
+    function cts(v){return enc>0?f1.format(v/enc*100)+' cts':'—';}
+    document.getElementById('cmp').innerHTML=
+      '<thead><tr><th>En euros par an</th><th class="n">Chargé en interne</th><th class="n">Externalisation (BPO 1 an)</th></tr></thead><tbody>'+
+      row('Créances moyennes (CA × DSO / 365)',eur(creances),eur(creances))+
+      row('Encaissements sur retards recouvrés',eur(enc),eur(enc))+
+      row('Salaire brut',eur(c.sal),'—')+
+      row('Charges patronales ('+f0.format(c.ch)+' %)',eur(c.sal*ch),'—')+
+      row('Outils et téléphonie',eur(c.out),'—')+
+      row('Remplacement, absences, formation ('+f0.format(c.rem)+' %)',eur(interne*rempl),'—')+
+      row('Part fixe du BPO','—',eur(c.fix))+
+      row('Part variable ('+f1.format(c.tx)+' % des encaissements)','—',eur(vari))+
+      row('Coût total',eur(interneTot),eur(bpo),'tot')+
+      row('Coût pour 1 € encaissé',cts(interneTot),cts(bpo),'sub')+
+      '</tbody>';
+  }
+  drawCmp();
+
+  /* --- Administration --- */
+  function mission(c){
+    var h=0,ca=0,cost=0,ps=[];
+    c.profils.forEach(function(p){
+      var hh=c.dossiers*p.min/60; h+=hh; ca+=hh*p.v; cost+=hh*p.c;
+      ps.push({n:p.n,h:hh,ca:hh*p.v,cost:hh*p.c});
+    });
+    var com=c.encaisse*c.commission/100; ca+=com;
+    return {h:h,ca:ca,cost:cost,com:com,marge:ca-cost,taux:ca?(ca-cost)/ca:0,ps:ps};
+  }
+  function drawAdm(){
+    var pf=document.getElementById('adm-prof');if(!pf.contains(document.activeElement))pf.innerHTML=cfg.profils.map(function(p,i){
+      return '<tr><td>'+p.n+'</td>'+
+        '<td class="n"><input type="number" min="0" step="1" data-k="v" data-i="'+i+'" value="'+p.v+'" style="width:90px;text-align:right"></td>'+
+        '<td class="n"><input type="number" min="0" step="1" data-k="c" data-i="'+i+'" value="'+p.c+'" style="width:90px;text-align:right"></td>'+
+        '<td class="n"><input type="number" min="0" step="1" data-k="min" data-i="'+i+'" value="'+p.min+'" style="width:90px;text-align:right"></td></tr>';
+    }).join('');
+    document.getElementById('adm-dos').value=cfg.dossiers;
+    document.getElementById('adm-enc').value=cfg.encaisse;
+    document.getElementById('adm-com').value=cfg.commission;
+    document.getElementById('k-cl').value=K.cl==null?'':K.cl;
+    document.getElementById('k-en').value=K.en==null?'':K.en;
+    document.getElementById('k-da').value=K.da==null?'':K.da;
+    document.getElementById('k-dp').value=K.dp==null?'':K.dp;
+    document.getElementById('k-tr').value=K.tr==null?'':K.tr;
+    var m=mission(cfg);
+    document.getElementById('adm-out').innerHTML=
+      '<div class="tile"><div class="l">Chiffre d\'affaires</div><div class="v">'+ka(m.ca)+'</div></div>'+
+      '<div class="tile"><div class="l">Coût interne</div><div class="v">'+ka(m.cost)+'</div></div>'+
+      '<div class="tile"><div class="l">Marge</div><div class="v'+(m.marge<0?' neg':'')+'">'+ka(m.marge)+'</div><div class="l">'+f0.format(m.taux*100)+' %</div></div>'+
+      '<div class="tile"><div class="l">Heures par mois</div><div class="v">'+f1.format(m.h)+' h</div><div class="l">'+f1.format(m.h/139)+' ETP</div></div>';
+    document.getElementById('adm-det').innerHTML=
+      '<thead><tr><th>Profil</th><th class="n">Heures / mois</th><th class="n">CA</th><th class="n">Coût</th></tr></thead><tbody>'+
+      m.ps.map(function(x){return '<tr><td>'+x.n+'</td><td class="n">'+f1.format(x.h)+' h</td><td class="n">'+eur(x.ca)+'</td><td class="n">'+eur(x.cost)+'</td></tr>';}).join('')+
+      row('Commission sur encaissements',"—",eur(m.com),'')+
+      '<tr class="tot"><td>Total</td><td class="n">'+f1.format(m.h)+' h</td><td class="n">'+eur(m.ca)+'</td><td class="n">'+eur(m.cost)+'</td></tr>'+
+      '</tbody>';
+    document.getElementById('adm-json').value=JSON.stringify(window.RPstore.all(),null,2);
+  }
+  document.getElementById('v-admin').addEventListener('input',function(e){
+    var t=e.target;
+    if(t.dataset && t.dataset.k){cfg.profils[+t.dataset.i][t.dataset.k]=+t.value||0;}
+    else if(t.id==='adm-dos'){cfg.dossiers=+t.value||0;}
+    else if(t.id==='adm-enc'){cfg.encaisse=+t.value||0;}
+    else if(t.id==='adm-com'){cfg.commission=+t.value||0;}
+    else if(t.id.indexOf('k-')===0){
+      var key={'k-cl':'cl','k-en':'en','k-da':'da','k-dp':'dp','k-tr':'tr'}[t.id];
+      cfg.kpi=cfg.kpi||{};cfg.kpi[key]=t.value===''?null:+t.value;K=cfg.kpi;
+    }
+    save();drawAdm();drawKpi();
+  });
+  document.getElementById('adm-reset').addEventListener('click',function(){
+    var kk=cfg.kpi;cfg=JSON.parse(JSON.stringify(DEF));cfg.kpi=kk;K=cfg.kpi;save();drawAdm();drawKpi();
+  });
+  drawAdm();
+  window.RPadmin={kpi:function(){return K;},setKpi:function(k,v){cfg.kpi=K;K[k]=v;save();drawAdm();drawKpi();},redraw:function(){drawAdm();}};
+  window.addEventListener('rp-store',function(e){
+    var ks=e.detail.keys,ch=false;
+    if(ks.indexOf('admin')>=0){var a=window.RPstore.get('admin');var kk=cfg.kpi;cfg=a&&a.profils?JSON.parse(JSON.stringify(a)):JSON.parse(JSON.stringify(DEF));cfg.kpi=kk;K=cfg.kpi;ch=true;}
+    if(ks.indexOf('kpi')>=0){var kp=window.RPstore.get('kpi');cfg.kpi=kp?JSON.parse(JSON.stringify(kp)):JSON.parse(JSON.stringify(DEF.kpi));K=cfg.kpi;ch=true;drawKpi();}
+    if(ch)drawAdm();
+    if(ks.indexOf('cmp')>=0)drawCmp();
+  });
+})();
+</script>
+<script>
+(function(){
+  var f0=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}),f1=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1});
+  function money(v){return v>=1e6?f1.format(v/1e6)+' M€':f0.format(Math.round(v/1000))+' k€';}
+  /* Aller à une section de l'accueil */
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-goto]');if(!b)return;
+    var id=b.getAttribute('data-goto');
+    function go(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+    if(!document.getElementById('v-solution').classList.contains('on')){location.hash='#solution';setTimeout(go,120);}else go();
+  });
+  /* Simulateur */
+  var ids=['s-ca','s-d0','s-d1','s-tx'];
+  function sim(){
+    var ca=+document.getElementById('s-ca').value*1e6,d0=+document.getElementById('s-d0').value,d1=+document.getElementById('s-d1').value,tx=+document.getElementById('s-tx').value/100;
+    document.getElementById('o-s-ca').textContent=f0.format(ca/1e6)+' M€';
+    document.getElementById('o-s-d0').textContent=d0+' jours';
+    document.getElementById('o-s-d1').textContent=d1+' jours';
+    document.getElementById('o-s-tx').textContent=f1.format(tx*100)+' %';
+    var gain=Math.max(0,ca*(d0-d1)/365);
+    document.getElementById('s-cash').textContent=d1>=d0?'0 €':money(gain);
+    document.getElementById('s-fin').textContent=money(gain*tx)+' par an';
+    var mx=Math.max(d0,d1,1);
+    document.getElementById('s-l0').textContent='DSO actuel : '+d0+' jours';
+    document.getElementById('s-l1').textContent='DSO visé : '+d1+' jours';
+    document.getElementById('s-b0').style.width=(d0/mx*100)+'%';
+    document.getElementById('s-b1').style.width=(d1/mx*100)+'%';
+  }
+  ids.forEach(function(i){document.getElementById(i).addEventListener('input',sim);});
+  function simDefaults(){var d={},a=window.RPdefs.sim,s=window.RPstore.get('sim')||{},q;for(q in a)d[q]=a[q];for(q in s)if(s[q]!=null)d[q]=s[q];
+    document.getElementById('s-ca').value=d.ca;document.getElementById('s-d0').value=d.d0;document.getElementById('s-d1').value=d.d1;document.getElementById('s-tx').value=d.tx;sim();}
+  simDefaults();
+  window.addEventListener('rp-store',function(e){if(e.detail.keys.indexOf('sim')>=0)simDefaults();});
+  /* Coordonnées */
+  var DEF_C={mail:'',tel:'',rdv:''},C={mail:'',tel:'',rdv:''};
+  var oc=window.RPstore.get('contact');if(oc){for(var k in oc)C[k]=oc[k];}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function drawC(){
+    var na='<span class="na">à renseigner</span>';
+    var rdvOk=/^https:\/\/\S+$/.test(C.rdv||'');
+    document.getElementById('coord').innerHTML=
+      '<div><span>E-mail</span><span>'+(C.mail?esc(C.mail):na)+'</span></div>'+
+      '<div><span>Téléphone</span><span>'+(C.tel?esc(C.tel):na)+'</span></div>'+
+      (rdvOk?'<a class="btn pri" href="'+esc(C.rdv)+'" target="_blank" rel="noopener">Réserver un créneau</a>':'<div><span>Prise de rendez-vous</span>'+na+'</div>');
+  }
+  drawC();
+  var panel=document.getElementById('fx-panel');
+  function syncC(){panel.querySelectorAll('[data-contact]').forEach(function(el){if(document.activeElement!==el)el.value=C[el.getAttribute('data-contact')]||'';});}
+  syncC();
+  document.getElementById('fx-btn').addEventListener('click',syncC);
+  panel.addEventListener('input',function(e){var k=e.target.getAttribute('data-contact');if(!k)return;C[k]=e.target.value.trim();window.RPstore.set('contact',C);drawC();if(window.RPadmin)window.RPadmin.redraw();});
+  window.RPcontact={get:function(){return C;}};
+  window.addEventListener('rp-store',function(e){if(e.detail.keys.indexOf('contact')<0)return;var o=window.RPstore.get('contact')||{};C={mail:o.mail||'',tel:o.tel||'',rdv:o.rdv||''};drawC();syncC();});
+  if(window.RPadmin)window.RPadmin.redraw();
+})();
+</script>
+<script>
+(function(){
+  /* Logos officiels : coller ici les fichiers fournis (data URI). Vide = nom du produit en texte. */
+  var LOGOS={diabolocom:'',powerbi:'',claude:'',copilot:''};
+  var NAMES={diabolocom:'Diabolocom',powerbi:'Power BI',claude:'Claude',copilot:'Copilot'};
+  document.querySelectorAll('[data-logo]').forEach(function(el){
+    var k=el.getAttribute('data-logo');
+    if(LOGOS[k]){el.innerHTML='<img alt="Logo '+NAMES[k]+'" src="'+LOGOS[k]+'">';}
+    else{el.classList.add('txt');el.textContent=NAMES[k];var b=el.parentNode.querySelector('b');if(b)b.hidden=true;}
+  });
+})();
+</script>
+<script>
+(function(){
+  var root=document.documentElement,S=window.RPstore;
+  /* ---------- Paramètres génériques du panneau ---------- */
+  var panel=document.getElementById('fx-panel');
+  function grp(g){var o={},d=window.RPdefs[g],s=S.get(g)||{},k;for(k in d)o[k]=d[k];for(k in s)if(s[k]!=null)o[k]=s[k];return o;}
+  function syncP(){panel.querySelectorAll('[data-p]').forEach(function(el){if(document.activeElement===el)return;var a=el.getAttribute('data-p').split('.');el.value=grp(a[0])[a[1]];});}
+  panel.addEventListener('input',function(e){
+    var p=e.target.getAttribute('data-p');if(!p)return;
+    var a=p.split('.'),o=grp(a[0]);
+    o[a[1]]=e.target.value===''?window.RPdefs[a[0]][a[1]]:+e.target.value;
+    S.set(a[0],o,true);
+  });
+  document.getElementById('fx-btn').addEventListener('click',syncP);
+  window.addEventListener('rp-store',syncP);
+  syncP();
+
+  /* ---------- Édition des textes ---------- */
+  var SEL='main h1,main h2,main h3,main p,main li,main summary,main th,main td,main .eyebrow,main .tag,main .price,main .when,main .big,main .stat a,main .chips span,main .chiprow span,main .flow > div,main .tl > div,main .steps > div,main small,main .lg b,main .lg span,main .btn,footer h4,footer p,footer a,footer span';
+  var EXCL='#kpi,#cmp,#pl,#vol,#tiles,#adm-out,#adm-det,#adm-prof,#coord,.cw,.controls,.sim-out,svg,canvas,#v-admin,.art,label,.slot,nav,.rp-noedit';
+  var cand=[];
+  document.querySelectorAll(SEL).forEach(function(el){if(!el.closest(EXCL))cand.push(el);});
+  var inSet=new Set(cand);
+  var nodes=cand.filter(function(el){var inner=el.querySelectorAll(SEL);for(var i=0;i<inner.length;i++){if(inSet.has(inner[i]))return false;}return true;});
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function clean(node){
+    var out='';
+    node.childNodes.forEach(function(n){
+      if(n.nodeType===3){out+=esc(n.nodeValue);return;}
+      if(n.nodeType!==1)return;
+      var t=n.tagName.toLowerCase(),inner=clean(n);
+      if(t==='br')out+='<br>';
+      else if(/^(b|strong|i|em)$/.test(t))out+='<'+t+'>'+inner+'</'+t+'>';
+      else if(t==='a'){var hr=n.getAttribute('href')||'';out+=/^(https?:\/\/|#)/.test(hr)?'<a href="'+esc(hr)+'">'+inner+'</a>':inner;}
+      else if(t==='div'||t==='p')out+=(out?'<br>':'')+inner;
+      else out+=inner;
+    });
+    return out.replace(/&nbsp;/g,' ');
+  }
+  function safe(html){var tp=document.createElement('template');tp.innerHTML=String(html);return clean(tp.content);}
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36);}
+  var ORIG={},BASE={},H={},count={};
+  nodes.forEach(function(el){
+    var sec=el.closest('section.view'),g=sec?sec.id.replace(/^v-/,''):'footer';
+    count[g]=count[g]||0;var id=g+'-'+(count[g]++);
+    el.setAttribute('data-tid',id);ORIG[id]=el.innerHTML;BASE[id]=clean(el);H[id]=hash(BASE[id]);
+  });
+  function applyAll(){
+    var m=S.get('texts')||{};
+    nodes.forEach(function(el){
+      if(el===document.activeElement)return;
+      var id=el.getAttribute('data-tid'),e=m[id];
+      if(e&&e.h===H[id]&&typeof e.v==='string'){el.innerHTML=safe(e.v);el.classList.add('rp-mod');}
+      else if(el.classList.contains('rp-mod')){el.innerHTML=ORIG[id];el.classList.remove('rp-mod');}
+    });
+  }
+  applyAll();
+  window.addEventListener('rp-store',function(e){if(e.detail.keys.indexOf('texts')>=0)applyAll();});
+
+  var editing=false,timers={},lastEl=null;
+  function commit(el){
+    var id=el.getAttribute('data-tid'),v=clean(el),m=JSON.parse(JSON.stringify(S.get('texts')||{}));
+    if(v===BASE[id]){delete m[id];el.classList.remove('rp-mod');}
+    else{m[id]={h:H[id],v:v};el.classList.add('rp-mod');}
+    S.set('texts',m);updRestore();
+  }
+  function setEdit(on){
+    editing=on;root.classList.toggle('rp-edit',on);
+    nodes.forEach(function(el){if(on){el.setAttribute('contenteditable','true');el.spellcheck=true;}else{el.removeAttribute('contenteditable');}});
+    if(on)document.querySelectorAll('main details').forEach(function(d){d.open=true;});
+    editBtn.setAttribute('aria-pressed',String(on));
+    editBtn.textContent=on?'Terminer la modification':'Modifier les textes';
+    if(!on){lastEl=null;updRestore();}
+  }
+  document.addEventListener('input',function(e){
+    if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(!el)return;
+    var id=el.getAttribute('data-tid');clearTimeout(timers[id]);timers[id]=setTimeout(function(){commit(el);},600);
+  });
+  document.addEventListener('focusin',function(e){if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(el){lastEl=el;updRestore();}});
+  document.addEventListener('focusout',function(e){
+    if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(!el)return;
+    var id=el.getAttribute('data-tid');if(timers[id]){clearTimeout(timers[id]);timers[id]=null;commit(el);}
+  });
+  document.addEventListener('keydown',function(e){
+    if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(!el)return;
+    if(e.key==='Enter'){e.preventDefault();if(e.shiftKey)document.execCommand('insertLineBreak');}
+    else if(e.key==='Escape'){el.blur();}
+  });
+  document.addEventListener('paste',function(e){
+    if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(!el)return;
+    e.preventDefault();var t=(e.clipboardData||window.clipboardData).getData('text/plain')||'';
+    document.execCommand('insertText',false,t.replace(/\s*\n\s*/g,' '));
+  });
+  window.addEventListener('click',function(e){
+    if(!editing)return;var el=e.target.closest&&e.target.closest('[data-tid]');if(!el)return;
+    if(e.target.closest('a,button,summary')){e.preventDefault();e.stopPropagation();}
+  },true);
+
+  /* ---------- Barre d'administration ---------- */
+  var bar=document.createElement('div');
+  bar.className='rp-bar';bar.hidden=true;bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','Administration du site');
+  bar.innerHTML='<span class="lbl">Admin</span>'+
+    '<button type="button" id="rp-edit" aria-pressed="false">Modifier les textes</button>'+
+    '<button type="button" id="rp-restore" disabled>Rétablir ce texte</button>'+
+    '<button type="button" id="rp-settings">Réglages</button>'+
+    '<a class="rp-link" href="#admin">Tarifs et marge</a>'+
+    '<span class="st" id="rp-st" aria-live="polite"></span>';
+  document.body.appendChild(bar);
+  var editBtn=document.getElementById('rp-edit'),restBtn=document.getElementById('rp-restore'),stEl=document.getElementById('rp-st');
+  editBtn.addEventListener('click',function(){setEdit(!editing);});
+  restBtn.addEventListener('mousedown',function(e){e.preventDefault();});
+  restBtn.addEventListener('click',function(){
+    if(!lastEl)return;var id=lastEl.getAttribute('data-tid');
+    clearTimeout(timers[id]);timers[id]=null;lastEl.innerHTML=ORIG[id];commit(lastEl);
+  });
+  function updRestore(){restBtn.disabled=!(editing&&lastEl&&lastEl.classList.contains('rp-mod'));}
+  document.getElementById('rp-settings').addEventListener('click',function(){if(editing)setEdit(false);document.getElementById('fx-btn').click();});
+  function showSt(){
+    var s=S.state,txt='',err=false;
+    if(!S.online()){txt=S.ready()?'Aperçu : modifications gardées dans ce navigateur':'Connexion au stockage…';}
+    else if(s==='saving'||s==='dirty')txt='Enregistrement…';
+    else if(s==='error'){txt='Échec de l\'enregistrement, réessayez';err=true;}
+    else txt='Enregistré en ligne';
+    stEl.textContent=txt;stEl.classList.toggle('err',err);
+  }
+  window.addEventListener('rp-save',showSt);
+  function panelFlag(){try{return localStorage.getItem('rp-panel')==='1';}catch(e){return false;}}
+  function decide(){
+    var show=S.isOwner()||(!S.online()&&(panelFlag()||location.hash==='#admin'));
+    if(S.get('__public'))show=false;
+    if(S.online()&&!S.isOwner())show=false;
+    bar.hidden=!show;root.classList.toggle('rp-admin',show);
+    if(S.online()&&!S.isOwner())document.getElementById('fx-btn').hidden=true;
+    if(!show&&editing)setEdit(false);
+    showSt();
+  }
+  window.addEventListener('rp-role',decide);
+  window.addEventListener('hashchange',decide);
+  decide();
+})();
+</script>
+</body>
+</html>
